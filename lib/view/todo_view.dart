@@ -19,11 +19,12 @@ class TodoView extends StatelessWidget {
               (oldIndex, newIndex) => provider.reorderTask(oldIndex, newIndex),
           itemCount: provider.todos.length,
           itemBuilder: (context, index) {
-            return Padding(
+            return Dismissible(
+              onDismissed: (direction) => provider.deleteTask(index),
               key: ValueKey(provider.todos[index]),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: GestureDetector(
-                onDoubleTap: () => provider.deleteTask(index),
+              child: Padding(
+                key: ValueKey(provider.todos[index]),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                 child: TodoCardWidget(
                   isImportant: provider.todos[index].isImportant ?? false,
                   color: AppColors.purple,
