@@ -22,13 +22,16 @@ class TodoView extends StatelessWidget {
             return Padding(
               key: ValueKey(provider.todos[index]),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: TodoCardWidget(
-                color: AppColors.purple,
-                title: provider.todos[index].title,
-                subtitle: provider.todos[index].title,
-                date: provider.todos[index].time,
-                isDone: provider.todos[index].isDone,
-                onChanged: (value) => provider.toggle(value, index),
+              child: GestureDetector(
+                onDoubleTap: () => provider.deleteTask(index),
+                child: TodoCardWidget(
+                  color: AppColors.purple,
+                  title: provider.todos[index].title,
+                  subtitle: provider.todos[index].title,
+                  date: provider.todos[index].time,
+                  isDone: provider.todos[index].isDone,
+                  onChanged: (value) => provider.toggle(value, index),
+                ),
               ),
             );
           },
