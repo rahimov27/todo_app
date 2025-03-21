@@ -12,7 +12,8 @@ class TodoView extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<TodoViewmodel>(context);
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 100),
         child: ReorderableListView.builder(
           onReorder:
               (oldIndex, newIndex) => provider.reorderTask(oldIndex, newIndex),
