@@ -25,6 +25,7 @@ class TodoView extends StatelessWidget {
               child: GestureDetector(
                 onDoubleTap: () => provider.deleteTask(index),
                 child: TodoCardWidget(
+                  isImportant: provider.todos[index].isImportant ?? false,
                   color: AppColors.purple,
                   title: provider.todos[index].title,
                   subtitle: provider.todos[index].title,

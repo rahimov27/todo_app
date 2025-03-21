@@ -9,6 +9,7 @@ class TodoCardWidget extends StatelessWidget {
   final bool isDone;
   final Color color;
   final ValueChanged<bool?> onChanged;
+  final bool isImportant;
   const TodoCardWidget({
     super.key,
     required this.title,
@@ -17,6 +18,7 @@ class TodoCardWidget extends StatelessWidget {
     required this.isDone,
     required this.onChanged,
     required this.color,
+    required this.isImportant,
   });
 
   @override
@@ -27,7 +29,7 @@ class TodoCardWidget extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: color,
+          color: isImportant ? AppColors.red : color,
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
