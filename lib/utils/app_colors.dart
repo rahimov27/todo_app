@@ -7,4 +7,5 @@ abstract class AppColors {
   static const red = Color(0xffFF000C);
   static const purple = Color(0xff633CAE);
   static const pink = Color(0xffFF6C6C);
+  static const isDone = Color.fromARGB(255, 58, 58, 58);
 }

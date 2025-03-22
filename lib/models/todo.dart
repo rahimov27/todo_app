@@ -11,11 +11,17 @@ class Todo extends HiveObject {
   DateTime time;
   @HiveField(3)
   bool? isImportant;
+  @HiveField(4)
+  DateTime? dateComplete;
+  @HiveField(5)
+  String? subtitle;
 
   Todo({
     required this.time,
     required this.isDone,
     required this.title,
     this.isImportant = false,
+    this.dateComplete,
+    this.subtitle,
   });
 }

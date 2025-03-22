@@ -29,7 +29,12 @@ class TodoCardWidget extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: isImportant ? AppColors.red : color,
+          color:
+              isDone
+                  ? AppColors.isDone
+                  : isImportant
+                  ? AppColors.red
+                  : color,
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -48,10 +53,16 @@ class TodoCardWidget extends StatelessWidget {
                       Text(
                         title,
                         style: TextStyle(
+                          decoration:
+                              isDone ? TextDecoration.lineThrough : null,
                           overflow: TextOverflow.ellipsis,
                           fontFamily: "Tektur",
                           fontSize: 30,
-                          color: AppColors.scaffoldColor,
+                          decorationThickness: 3,
+                          color:
+                              isDone
+                                  ? AppColors.finishedColor
+                                  : AppColors.scaffoldColor,
                           fontWeight: FontWeight.w900,
                         ),
                       ),

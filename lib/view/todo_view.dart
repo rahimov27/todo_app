@@ -29,7 +29,7 @@ class TodoView extends StatelessWidget {
                   isImportant: provider.todos[index].isImportant ?? false,
                   color: AppColors.purple,
                   title: provider.todos[index].title,
-                  subtitle: provider.todos[index].title,
+                  subtitle: provider.todos[index].subtitle ?? "Пусто",
                   date: provider.todos[index].time,
                   isDone: provider.todos[index].isDone,
                   onChanged: (value) => provider.toggle(value, index),
@@ -49,7 +49,7 @@ class TodoView extends StatelessWidget {
                     return Dialog(
                       backgroundColor: Colors.transparent,
                       child: Container(
-                        height: 200,
+                        height: 400,
                         decoration: BoxDecoration(color: Colors.white),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -81,16 +81,60 @@ class TodoView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(0),
                                     ),
                                   ),
-                                  controller: provider.messageController,
+                                  controller: provider.titleController,
                                   onSubmitted: (value) {
                                     if (provider
-                                        .messageController
+                                        .titleController
                                         .text
                                         .isNotEmpty) {
                                       provider.addMessage(
-                                        provider.messageController.text,
+                                        provider.titleController.text,
+                                        provider.subtitleController.text,
                                       );
-                                      provider.messageController.clear();
+                                      provider.titleController.clear();
+                                    }
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                              // 2
+                              Center(
+                                child: TextField(
+                                  style: TextStyle(
+                                    fontFamily: "Tektur",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                  cursorColor: Colors.black,
+                                  decoration: InputDecoration(
+                                    focusColor: Colors.black,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    hintText: "Введите подзадачу",
+                                    hintStyle: TextStyle(
+                                      fontFamily: "Tektur",
+                                      fontSize: 14,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                  ),
+                                  controller: provider.subtitleController,
+                                  onSubmitted: (value) {
+                                    if (provider
+                                        .titleController
+                                        .text
+                                        .isNotEmpty) {
+                                      provider.addMessage(
+                                        provider.titleController.text,
+                                        provider.subtitleController.text,
+                                      );
+                                      provider.titleController.clear();
+                                      provider.subtitleController.clear();
                                     }
                                     Navigator.pop(context);
                                   },
@@ -118,6 +162,31 @@ class TodoView extends StatelessWidget {
                                     },
                                   ),
                                 ],
+                              ),
+                              CupertinoButton(
+                                child: Text("Когда нужно закончить?"),
+                                onPressed: () {
+                                  showCupertinoModalPopup(
+                                    context: context,
+                                    builder:
+                                        (BuildContext context) => Container(
+                                          height: 400,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              20,
+                                            ),
+                                            color: AppColors.scaffoldColor,
+                                          ),
+                                          child: CupertinoDatePicker(
+                                            onDateTimeChanged: (
+                                              onDateTimeChanged,
+                                            ) {
+                                              print(onDateTimeChanged);
+                                            },
+                                          ),
+                                        ),
+                                  );
+                                },
                               ),
                             ],
                           ),

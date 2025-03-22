@@ -1,5 +1,6 @@
 import 'dart:math' show Random;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:todo_app/models/todo.dart';
@@ -10,7 +11,8 @@ class TodoViewmodel extends ChangeNotifier {
   List<Todo> todos = [];
   bool isImportant = false;
 
-  TextEditingController messageController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController subtitleController = TextEditingController();
 
   TodoViewmodel() {
     initHive();
@@ -21,17 +23,24 @@ class TodoViewmodel extends ChangeNotifier {
     getMessage();
   }
 
-  void addMessage(String value) async {
+  void addMessage(String value,String? subtitle) async {
     final todo = Todo(
       time: DateTime.now(),
       isDone: false,
       title: value,
       isImportant: isImportant,
+      subtitle: subtitle ?? "Пусто"
     );
     await _todoBox.add(todo);
     todos = _todoBox.values.toList();
     notifyListeners();
   }
+
+  selectDate(){
+    
+  }
+
+  
 
   void getMessage() {
     todos = _todoBox.values.toList();
