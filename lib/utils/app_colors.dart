@@ -30,4 +30,7 @@ abstract class AppColors {
 
   // add folder
   static const titleColor = Color(0xffC3C3C3);
+
+  static const borderColor = Color(0xff3C3C3C);
+  static const sliderRed = Color(0xffB51153);
 }

@@ -51,6 +51,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter-Bold.otf
 
+    - family: Inter-Medium
+      fonts:
+        - asset: assets/fonts/Inter-Medium.otf
+
     - family: Montserrat-medium
       fonts:
         - asset: assets/fonts/Montserrat-Medium.ttf
