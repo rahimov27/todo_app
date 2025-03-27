@@ -63,13 +63,31 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                             ),
                           ),
                           SizedBox(height: 6),
-                          Text(
-                            "Мы любим животных и стараемся",
+                          TextField(
+                            maxLines: 2,
+                            cursorColor: AppColors.titleColor,
                             style: TextStyle(
                               fontSize: 22,
                               fontFamily: "Inter-semibold",
                               color: Colors.white,
                               letterSpacing: -0.3,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(0),
+                              hintText: "Мы любим животных и стараемся",
+                              hintStyle: TextStyle(
+                                fontSize: 22,
+                                fontFamily: "Inter-semibold",
+                                color: Colors.white,
+                                letterSpacing: -0.3,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                              border: OutlineInputBorder(),
                             ),
                           ),
                           SizedBox(height: 24),
