@@ -59,7 +59,7 @@ class TodoView extends StatelessWidget {
                               Center(
                                 child: TextField(
                                   style: TextStyle(
-                                    fontFamily: "Tektur",
+                                    fontFamily: "Inter",
                                     fontSize: 14,
                                     fontWeight: FontWeight.w100,
                                   ),
@@ -74,7 +74,7 @@ class TodoView extends StatelessWidget {
                                     ),
                                     hintText: "Введите задачу",
                                     hintStyle: TextStyle(
-                                      fontFamily: "Tektur",
+                                      fontFamily: "Inter",
                                       fontSize: 14,
                                     ),
                                     border: OutlineInputBorder(
@@ -101,7 +101,7 @@ class TodoView extends StatelessWidget {
                               Center(
                                 child: TextField(
                                   style: TextStyle(
-                                    fontFamily: "Tektur",
+                                    fontFamily: "Inter",
                                     fontSize: 14,
                                     fontWeight: FontWeight.w100,
                                   ),
@@ -116,7 +116,7 @@ class TodoView extends StatelessWidget {
                                     ),
                                     hintText: "Введите подзадачу",
                                     hintStyle: TextStyle(
-                                      fontFamily: "Tektur",
+                                      fontFamily: "Inter",
                                       fontSize: 14,
                                     ),
                                     border: OutlineInputBorder(
@@ -148,7 +148,7 @@ class TodoView extends StatelessWidget {
                                   Text(
                                     "Это важно?",
                                     style: TextStyle(
-                                      fontFamily: "Tektur",
+                                      fontFamily: "Inter",
                                       fontSize: 14,
                                     ),
                                   ),

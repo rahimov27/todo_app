@@ -56,7 +56,7 @@ class TodoCardWidget extends StatelessWidget {
                           decoration:
                               isDone ? TextDecoration.lineThrough : null,
                           overflow: TextOverflow.ellipsis,
-                          fontFamily: "Tektur",
+                          fontFamily: "Inter",
                           fontSize: 30,
                           decorationThickness: 3,
                           color:
@@ -69,7 +69,7 @@ class TodoCardWidget extends StatelessWidget {
                       Text(
                         subtitle,
                         style: TextStyle(
-                          fontFamily: "Tektur",
+                          fontFamily: "Inter",
                           fontSize: 16,
                           color: const Color.fromARGB(179, 255, 255, 255),
                           fontWeight: FontWeight.w500,
@@ -97,7 +97,7 @@ class TodoCardWidget extends StatelessWidget {
                   ),
                   child: Text(
                     DateFormat("HH:mm").format(date),
-                    style: TextStyle(fontFamily: "Tektur"),
+                    style: TextStyle(fontFamily: "Inter"),
                   ),
                 ),
               ),
