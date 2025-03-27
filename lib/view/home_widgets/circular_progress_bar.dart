@@ -53,7 +53,10 @@ class _CircularProgressPainter extends CustomPainter {
 
     Paint progressPaint =
         Paint()
-          ..color = Color(0xff11B57B)
+          ..color =
+              percentage < 30
+                  ? Color(0xffB51153)
+                  : (percentage < 60 ? Color(0xffE4B21D) : Color(0xff11B57B))
           ..style = PaintingStyle.stroke
           ..strokeWidth = 10
           ..strokeCap = StrokeCap.round;

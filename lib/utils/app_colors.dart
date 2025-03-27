@@ -20,4 +20,8 @@ abstract class AppColors {
   static const cardColor = Color(0xff232229);
   static const timeColor = Color(0xffB4B4B4);
   static const appGreen = Color(0xff11B57B);
+  static const appPurple = Color(0xff714DD9);
+
+  static const cardGrey = Color(0xffCDCDCD);
+  static const cardBlue = Color(0xff2295F3);
 }
