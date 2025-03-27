@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
 import 'package:todo_app/utils/theme.dart';
-import 'package:todo_app/view/todo_view.dart';
+import 'package:todo_app/view/on_boarding_1.dart';
 import 'package:todo_app/viewmodel/todo_viewmodel.dart';
 
 void main() async {
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TodoViewmodel(),
-      child: MaterialApp(home: TodoView(), theme: theme),
+      child: MaterialApp(home: OnBoarding1(), theme: theme),
     );
   }
 }
