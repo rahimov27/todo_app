@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -15,9 +16,14 @@ import 'package:todo_app/viewmodel/todo_viewmodel.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
   Hive.registerAdapter(TodoAdapter());
-  runApp(const MyApp());
+
+  // Display only up
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
+    _,
+  ) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {

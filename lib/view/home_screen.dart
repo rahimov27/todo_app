@@ -104,8 +104,18 @@ class HomeScreen extends StatelessWidget {
                 progress: 20,
                 color: AppColors.cardYellow,
               ),
+              SizedBox(height: 30),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: Align(
+        alignment: Alignment(1, 1.03),
+        child: FloatingActionButton(
+          onPressed: () {},
+          shape: CircleBorder(),
+          backgroundColor: Colors.white,
+          child: Icon(Icons.add),
         ),
       ),
     );
