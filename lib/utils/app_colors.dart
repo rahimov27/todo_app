@@ -24,4 +24,7 @@ abstract class AppColors {
 
   static const cardGrey = Color(0xffCDCDCD);
   static const cardBlue = Color(0xff2295F3);
+  static const cardYellow = Color(0xffE9C80C);
+
+  
 }

@@ -38,6 +38,7 @@ class TodoView extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                SizedBox(height: 14),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -64,6 +65,7 @@ class TodoView extends StatelessWidget {
                     ),
 
                     Spacer(),
+
                     Column(
                       children: [
                         FolderCard(
@@ -86,6 +88,15 @@ class TodoView extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+                SizedBox(height: 10),
+                FolderCard(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.width / 2.5,
+                  title: "Задачи по курсам",
+                  subtitle: "",
+                  progress: 20,
+                  color: AppColors.cardYellow,
                 ),
               ],
             ),

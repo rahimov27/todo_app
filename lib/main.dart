@@ -9,6 +9,7 @@ import 'package:todo_app/viewmodel/todo_viewmodel.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+
   Hive.registerAdapter(TodoAdapter());
   runApp(HomeScreen());
 }
@@ -20,7 +21,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TodoViewmodel(),
-      child: MaterialApp(home: TodoView(), theme: theme),
+      child: MaterialApp(
+        home: TodoView(),
+        theme: theme,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
