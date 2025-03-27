@@ -26,5 +26,5 @@ abstract class AppColors {
   static const cardBlue = Color(0xff2295F3);
   static const cardYellow = Color(0xffE9C80C);
 
-  
+  static const bottomNavBar = Color(0xff232229);
 }
