@@ -59,6 +59,7 @@ class _OnBoarding1State extends State<OnBoarding1> {
                       child: DotIndicator(isActive: index == _pageIndex),
                     ),
                   ),
+                  
                 ],
               ),
               Expanded(
@@ -145,24 +146,30 @@ class OnboardingContent extends StatelessWidget {
         Spacer(),
         Center(child: SvgPicture.asset(image)),
         Text(
+          textAlign: TextAlign.center,
+
           title,
           style: TextStyle(
+            height: 1,
             fontFamily: "Montserrat-medium",
             fontSize: 24,
             letterSpacing: -0.5,
             color: Colors.white,
           ),
         ),
-        SizedBox(height: 6),
-        Text(
-          textAlign: TextAlign.center,
-          subtitle,
-          style: TextStyle(
-            height: 1.1,
-            fontFamily: "Montserrat",
-            fontSize: 14,
-            letterSpacing: -0.1,
-            color: AppColors.onBoardingGray,
+        SizedBox(height: 16),
+        SizedBox(
+          height: 51,
+          child: Text(
+            textAlign: TextAlign.center,
+            subtitle,
+            style: TextStyle(
+              height: 1.1,
+              fontFamily: "Montserrat",
+              fontSize: 14,
+              letterSpacing: -0.1,
+              color: AppColors.onBoardingGray,
+            ),
           ),
         ),
         Spacer(),

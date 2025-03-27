@@ -13,4 +13,11 @@ abstract class AppColors {
   static const onBoarding = Color(0xff004CFF);
   static const onBoardingGray = Color(0xffD7D7D7);
   static const onBoardingButton = Color(0xff008CFF);
+
+  // homepage
+  static const textField = Color(0xff232229);
+  static const textFieldText = Color(0xffA5A5A5);
+  static const cardColor = Color(0xff232229);
+  static const timeColor = Color(0xffB4B4B4);
+  static const appGreen = Color(0xff11B57B);
 }
