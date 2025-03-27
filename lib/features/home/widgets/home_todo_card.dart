@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/utils/app_colors.dart';
-import 'package:todo_app/view/home_widgets/circular_progress_bar.dart';
+import 'package:todo_app/features/home/widgets/circular_progress_bar.dart';
 
 class HomeTodoCard extends StatelessWidget {
   final double? percentage;

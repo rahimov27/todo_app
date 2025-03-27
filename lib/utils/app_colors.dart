@@ -27,4 +27,7 @@ abstract class AppColors {
   static const cardYellow = Color(0xffE9C80C);
 
   static const bottomNavBar = Color(0xff232229);
+
+  // add folder
+  static const titleColor = Color(0xffC3C3C3);
 }
