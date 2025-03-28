@@ -24,131 +24,137 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TodoViewmodel>(context);
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 18, right: 18, top: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // todos part
-              HomeWelcomeText(),
-              SizedBox(height: 14),
-              HomeSearch(),
-              SizedBox(height: 20),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.85,
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: provider.todos.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return HomeTodoCard(
-                      title: provider.todos[index].title,
-                      subtitle:
-                          provider.todos[index].subtitle ??
-                          "Ничего не добавлено",
-                      time: provider.todos[index].time,
-                      date: provider.todos[index].date,
-                      progress: provider.todos[index].progress,
-                    );
-                  },
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 18, right: 18, top: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // todos part
+                HomeWelcomeText(),
+                SizedBox(height: 14),
+                HomeSearch(),
+                SizedBox(height: 20),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.85,
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: provider.todos.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final todos = provider.todos.reversed.toList();
+                      return Dismissible(
+                        key: Key(provider.todos[index].key.toString()),
+                        child: HomeTodoCard(
+                          title: todos[index].title,
+                          subtitle:
+                              todos[index].subtitle ?? "Ничего не добавлено",
+                          time: todos[index].time,
+                          date: todos[index].date,
+                          progress: todos[index].progress,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
 
-              // folders part
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 24),
-                  Text(
-                    "Папки",
-                    style: TextStyle(
-                      letterSpacing: -0.7,
-                      fontFamily: "Inter-Bold",
-                      fontSize: 28,
-                      color: Colors.white,
+                // folders part
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 24),
+                    Text(
+                      "Папки",
+                      style: TextStyle(
+                        letterSpacing: -0.7,
+                        fontFamily: "Inter-Bold",
+                        fontSize: 28,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 14),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          FolderCard(
-                            width: MediaQuery.of(context).size.width / 2.10,
-                            height: MediaQuery.of(context).size.width / 1.3,
-                            title: "Задачи по работе и заводу",
-                            subtitle: "Заполнение всех документов на заводе!",
-                            progress: 30,
-                            color: AppColors.appPurple,
-                          ),
-                          SizedBox(height: 10),
-                          FolderCard(
-                            width: MediaQuery.of(context).size.width / 2.10,
-                            height: MediaQuery.of(context).size.width / 2.5,
-                            title: "Задачи по дому",
-                            subtitle: "",
-                            progress: 60,
-                            color: AppColors.pink,
-                          ),
-                        ],
-                      ),
+                    SizedBox(height: 14),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            FolderCard(
+                              width: MediaQuery.of(context).size.width / 2.10,
+                              height: MediaQuery.of(context).size.width / 1.3,
+                              title: "Задачи по работе и заводу",
+                              subtitle: "Заполнение всех документов на заводе!",
+                              progress: 30,
+                              color: AppColors.appPurple,
+                            ),
+                            SizedBox(height: 10),
+                            FolderCard(
+                              width: MediaQuery.of(context).size.width / 2.10,
+                              height: MediaQuery.of(context).size.width / 2.5,
+                              title: "Задачи по дому",
+                              subtitle: "",
+                              progress: 60,
+                              color: AppColors.pink,
+                            ),
+                          ],
+                        ),
 
-                      Spacer(),
+                        Spacer(),
 
-                      Column(
-                        children: [
-                          FolderCard(
-                            width: MediaQuery.of(context).size.width / 2.50,
-                            height: MediaQuery.of(context).size.width / 1.7,
-                            title: "Задачи по курсам",
-                            subtitle: "Заполнение всех документов на заводе!",
-                            progress: 20,
-                            color: AppColors.cardBlue,
-                          ),
-                          SizedBox(height: 10),
-                          FolderCard(
-                            width: MediaQuery.of(context).size.width / 2.50,
-                            height: MediaQuery.of(context).size.width / 1.7,
-                            title: "Задачи по учебе",
-                            subtitle: "Заполнение всех документов на заводе!",
-                            progress: 80,
-                            color: AppColors.appGreen,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  FolderCard(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.width / 2.5,
-                    title: "Задачи по курсам",
-                    subtitle: "",
-                    progress: 20,
-                    color: AppColors.cardYellow,
-                  ),
-                  SizedBox(height: 30),
-                ],
-              ),
-            ],
+                        Column(
+                          children: [
+                            FolderCard(
+                              width: MediaQuery.of(context).size.width / 2.50,
+                              height: MediaQuery.of(context).size.width / 1.7,
+                              title: "Задачи по курсам",
+                              subtitle: "Заполнение всех документов на заводе!",
+                              progress: 20,
+                              color: AppColors.cardBlue,
+                            ),
+                            SizedBox(height: 10),
+                            FolderCard(
+                              width: MediaQuery.of(context).size.width / 2.50,
+                              height: MediaQuery.of(context).size.width / 1.7,
+                              title: "Задачи по учебе",
+                              subtitle: "Заполнение всех документов на заводе!",
+                              progress: 80,
+                              color: AppColors.appGreen,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    FolderCard(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.width / 2.5,
+                      title: "Задачи по курсам",
+                      subtitle: "",
+                      progress: 20,
+                      color: AppColors.cardYellow,
+                    ),
+                    SizedBox(height: 30),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: Align(
-        alignment: Alignment(1, 1.03),
-        child: FloatingActionButton(
-          onPressed:
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddFolderScreen()),
-              ),
-          shape: CircleBorder(),
-          backgroundColor: Colors.white,
-          child: Icon(Icons.add),
+        floatingActionButton: Align(
+          alignment: Alignment(1, 1.03),
+          child: FloatingActionButton(
+            onPressed:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddFolderScreen()),
+                ),
+            shape: CircleBorder(),
+            backgroundColor: Colors.white,
+            child: Icon(Icons.add),
+          ),
         ),
       ),
     );
