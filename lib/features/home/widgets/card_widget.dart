@@ -9,6 +9,7 @@ class TodoCardWidget extends StatelessWidget {
   final bool isDone;
   final Color color;
   final ValueChanged<bool?> onChanged;
+  final bool isImportant;
   const TodoCardWidget({
     super.key,
     required this.title,
@@ -17,6 +18,7 @@ class TodoCardWidget extends StatelessWidget {
     required this.isDone,
     required this.onChanged,
     required this.color,
+    required this.isImportant,
   });
 
   @override
@@ -27,7 +29,12 @@ class TodoCardWidget extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: color,
+          color:
+              isDone
+                  ? AppColors.isDone
+                  : isImportant
+                  ? AppColors.red
+                  : color,
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -46,17 +53,23 @@ class TodoCardWidget extends StatelessWidget {
                       Text(
                         title,
                         style: TextStyle(
+                          decoration:
+                              isDone ? TextDecoration.lineThrough : null,
                           overflow: TextOverflow.ellipsis,
-                          fontFamily: "Tektur",
+                          fontFamily: "Inter",
                           fontSize: 30,
-                          color: AppColors.scaffoldColor,
+                          decorationThickness: 3,
+                          color:
+                              isDone
+                                  ? AppColors.finishedColor
+                                  : AppColors.scaffoldColor,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
                       Text(
                         subtitle,
                         style: TextStyle(
-                          fontFamily: "Tektur",
+                          fontFamily: "Inter",
                           fontSize: 16,
                           color: const Color.fromARGB(179, 255, 255, 255),
                           fontWeight: FontWeight.w500,
@@ -84,7 +97,7 @@ class TodoCardWidget extends StatelessWidget {
                   ),
                   child: Text(
                     DateFormat("HH:mm").format(date),
-                    style: TextStyle(fontFamily: "Tektur"),
+                    style: TextStyle(fontFamily: "Inter"),
                   ),
                 ),
               ),

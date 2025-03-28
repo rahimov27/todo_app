@@ -5,17 +5,24 @@ part 'todo.g.dart';
 class Todo extends HiveObject {
   @HiveField(0)
   String title;
+
   @HiveField(1)
-  bool isDone;
+  DateTime date; // Should be DateTime, not String
+
   @HiveField(2)
-  DateTime time;
+  DateTime time; // Should be DateTime, not String
+
   @HiveField(3)
-  bool? isImportant;
+  String? subtitle;
+
+  @HiveField(4)
+  double progress;
 
   Todo({
     required this.time,
-    required this.isDone,
     required this.title,
-    this.isImportant = false,
+    this.subtitle,
+    required this.date,
+    required this.progress,
   });
 }
