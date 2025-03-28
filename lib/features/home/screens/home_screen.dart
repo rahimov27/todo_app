@@ -39,33 +39,55 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 14),
                 HomeSearch(),
                 SizedBox(height: 20),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.85,
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: provider.todos.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final todo = provider.todos[index];
-                      return Dismissible(
-                        onDismissed: (direction) {
-                          Future.delayed(Duration(milliseconds: 100), () {
-                            provider.deleteTask(index);
-                            setState(() {});
-                          });
+                provider.todos.isNotEmpty
+                    ? ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context).size.width * 0.1,
+                        maxHeight: MediaQuery.of(context).size.width * 0.85,
+                      ),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: provider.todos.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final todo = provider.todos[index];
+                          return Dismissible(
+                            onDismissed: (direction) {
+                              Future.delayed(Duration(milliseconds: 100), () {
+                                provider.deleteTask(index);
+                                setState(() {});
+                              });
+                            },
+                            key: Key(todo.key.toString()),
+                            child: HomeTodoCard(
+                              title: todo.title,
+                              subtitle: todo.subtitle ?? "Ничего не добавлено",
+                              time: todo.time,
+                              date: todo.date,
+                              progress: todo.progress,
+                            ),
+                          );
                         },
-                        key: Key(todo.key.toString()),
-                        child: HomeTodoCard(
-                          title: todo.title,
-                          subtitle: todo.subtitle ?? "Ничего не добавлено",
-                          time: todo.time,
-                          date: todo.date,
-                          progress: todo.progress,
+                      ),
+                    )
+                    : Column(
+                      children: [
+                        HomeTodoCard(
+                          title: "Добавляйте свои задачи",
+                          subtitle: "Пишите свои описания",
+                          time: DateTime.now(),
+                          date: DateTime.now(),
+                          progress: 35,
                         ),
-                      );
-                    },
-                  ),
-                ),
+                        HomeTodoCard(
+                          title: "Добавляйте свои задачи",
+                          subtitle: "Пишите свои описания",
+                          time: DateTime.now(),
+                          date: DateTime.now(),
+                          progress: 35,
+                        ),
+                      ],
+                    ),
 
                 // folders part
                 Column(
