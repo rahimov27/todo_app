@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -7,15 +8,17 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/theme.dart';
-import 'package:todo_app/view/category_screen.dart';
-import 'package:todo_app/view/folder_screen.dart';
-import 'package:todo_app/view/profile_screen.dart';
-import 'package:todo_app/view/home_screen.dart';
+import 'package:todo_app/features/category/category_screen.dart';
+import 'package:todo_app/features/folder/folder_screen.dart';
+import 'package:todo_app/features/profile/profile_screen.dart';
+import 'package:todo_app/features/home/screens/home_screen.dart';
 import 'package:todo_app/viewmodel/todo_viewmodel.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await initializeDateFormatting("ru", null);
   Hive.registerAdapter(TodoAdapter());
 
   // Display only up
@@ -34,6 +37,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => TodoViewmodel(),
       child: MaterialApp(
+        locale: Locale("ru", "RU"),
+        supportedLocales: [Locale('ru', 'RU')],
+        localizationsDelegates: [
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: const MainMenu(),
         theme: theme,
         debugShowCheckedModeBanner: false,
