@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:todo_app/utils/app_colors.dart';
 
 class OnBoarding1 extends StatefulWidget {
@@ -25,19 +25,19 @@ class _OnBoarding1State extends State<OnBoarding1> {
       title: "Организуйте свой день",
       subtitle:
           "Создавайте списки задач, устанавливайте приоритеты и управляйте временем с удобным планировщиком.",
-      image: "assets/svg/first.svg",
+      animation: "assets/animations/animation-2.json",
     ),
     OnboardingContent(
       title: "Напоминания и уведомления",
       subtitle:
           "Никогда не забывайте важные дела — включите напоминания и получайте уведомления вовремя.",
-      image: "assets/svg/Illustration-1.svg",
+      animation: "assets/animations/animation-1.json",
     ),
     OnboardingContent(
       title: "Достигайте целей легко",
       subtitle:
           "Отмечайте выполненные задачи, отслеживайте прогресс и становитесь продуктивнее каждый день.",
-      image: "assets/svg/Illustration.svg",
+      animation: "assets/animations/mzE7jHsdAX.json",
     ),
   ];
 
@@ -59,7 +59,6 @@ class _OnBoarding1State extends State<OnBoarding1> {
                       child: DotIndicator(isActive: index == _pageIndex),
                     ),
                   ),
-                  
                 ],
               ),
               Expanded(
@@ -75,7 +74,7 @@ class _OnBoarding1State extends State<OnBoarding1> {
                       (context, index) => OnboardingContent(
                         title: onBoardingData[index].title,
                         subtitle: onBoardingData[index].subtitle,
-                        image: onBoardingData[index].image,
+                        animation: onBoardingData[index].animation,
                       ),
                 ),
               ),
@@ -130,12 +129,12 @@ class DotIndicator extends StatelessWidget {
 }
 
 class OnboardingContent extends StatelessWidget {
-  final String title, subtitle, image;
+  final String title, subtitle, animation;
   const OnboardingContent({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.image,
+    required this.animation,
   });
 
   @override
@@ -144,10 +143,10 @@ class OnboardingContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Spacer(),
-        Center(child: SvgPicture.asset(image)),
+        Lottie.asset(animation),
+        Spacer(),
         Text(
           textAlign: TextAlign.center,
-
           title,
           style: TextStyle(
             height: 1,

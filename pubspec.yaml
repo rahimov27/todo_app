@@ -23,6 +23,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -37,6 +38,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/animations/
 
   fonts:
     - family: Inter-semibold
