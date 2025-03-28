@@ -351,14 +351,18 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                             thumbColor:
                                 provider.progress < 40
                                     ? AppColors.sliderRed
-                                    : provider.progress < 80
+                                    : provider.progress < 60
                                     ? AppColors.cardYellow
+                                    : provider.progress < 80
+                                    ? const Color.fromARGB(255, 104, 227, 76)
                                     : AppColors.appGreen,
                             activeColor:
                                 provider.progress < 40
                                     ? AppColors.sliderRed
-                                    : provider.progress < 80
+                                    : provider.progress < 60
                                     ? AppColors.cardYellow
+                                    : provider.progress < 80
+                                    ? const Color.fromARGB(255, 104, 227, 76)
                                     : AppColors.appGreen,
                             value: provider.progress,
                             onChanged: (double value) {
@@ -370,7 +374,6 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                           ),
                         ),
                         SizedBox(width: 10),
-
                         Text(
                           "${provider.progress.truncate().toString()}%",
                           style: TextStyle(
@@ -381,7 +384,6 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                         ),
                       ],
                     ),
-
                     SizedBox(height: 60),
                     SizedBox(
                       width: double.infinity,
@@ -392,14 +394,18 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Заполните поля")),
                             );
+                          } else {
+                            provider.addMessage(
+                              provider.titleController.text,
+                              provider.subtitleController.text,
+                              provider.progress,
+                              provider.selectedDate,
+                              provider.selectedTime,
+                            );
+                            provider.titleController.clear();
+                            provider.subtitleController.clear();
+                            Navigator.pop(context);
                           }
-                          provider.addMessage(
-                            provider.titleController.text,
-                            provider.subtitleController.text,
-                            provider.progress,
-                            provider.selectedDate,
-                            provider.selectedTime,
-                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue, // Цвет фона
@@ -410,7 +416,13 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                             ), // Скругление углов
                           ),
                         ),
-                        child: Text("Add"),
+                        child: Text(
+                          "Добавить задачу",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: "Montserrat-medium",
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: 60),

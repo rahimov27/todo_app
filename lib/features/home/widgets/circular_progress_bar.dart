@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/utils/app_colors.dart';
 
 class CircularProgressBar extends StatelessWidget {
   final double percentage;
@@ -54,9 +55,13 @@ class _CircularProgressPainter extends CustomPainter {
     Paint progressPaint =
         Paint()
           ..color =
-              percentage < 30
-                  ? Color(0xffB51153)
-                  : (percentage < 60 ? Color(0xffE4B21D) : Color(0xff11B57B))
+              percentage < 40
+                  ? AppColors.sliderRed
+                  : percentage < 60
+                  ? AppColors.cardYellow
+                  : percentage < 80
+                  ? const Color.fromARGB(255, 104, 227, 76)
+                  : AppColors.appGreen
           ..style = PaintingStyle.stroke
           ..strokeWidth = 10
           ..strokeCap = StrokeCap.round;

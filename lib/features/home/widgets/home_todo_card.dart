@@ -38,12 +38,16 @@ class HomeTodoCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-semibold",
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-semibold",
+                            ),
                           ),
                         ),
                         SizedBox(height: 10),

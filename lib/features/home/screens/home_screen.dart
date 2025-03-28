@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.85,
                 child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  // physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: provider.todos.length,
                   itemBuilder: (BuildContext context, int index) {
