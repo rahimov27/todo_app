@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/utils/app_colors.dart';
+import 'package:todo_app/viewmodel/todo_viewmodel.dart';
 
 class AddFolderScreen extends StatefulWidget {
   const AddFolderScreen({super.key});
@@ -12,10 +14,9 @@ class AddFolderScreen extends StatefulWidget {
 }
 
 class _AddFolderScreenState extends State<AddFolderScreen> {
-  DateTime? selectedTime;
-  DateTime? selectedDate;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<TodoViewmodel>(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -64,6 +65,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                           ),
                           SizedBox(height: 6),
                           TextField(
+                            controller: provider.titleController,
                             maxLines: 2,
                             cursorColor: AppColors.titleColor,
                             style: TextStyle(
@@ -117,7 +119,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                                                   CupertinoDatePickerMode.time,
                                               onDateTimeChanged: (time) {
                                                 setState(() {
-                                                  selectedTime = time;
+                                                  provider.selectedTime = time;
                                                 });
                                               },
                                             ),
@@ -130,7 +132,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                                     Text(
                                       DateFormat(
                                         "HH:mm",
-                                      ).format(selectedTime ?? DateTime.now()),
+                                      ).format(provider.selectedTime),
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: "Inter",
@@ -156,7 +158,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                                                   CupertinoDatePickerMode.date,
                                               onDateTimeChanged: (date) {
                                                 setState(() {
-                                                  selectedDate = date;
+                                                  provider.selectedDate = date;
                                                 });
                                               },
                                             ),
@@ -172,7 +174,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                                       DateFormat(
                                         "dd MMMM",
                                         "ru",
-                                      ).format(selectedDate ?? DateTime.now()),
+                                      ).format(provider.selectedDate),
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontFamily: "Inter",
@@ -211,6 +213,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                       color: Colors.transparent,
                       height: 160,
                       child: TextField(
+                        controller: provider.subtitleController,
                         maxLines: null,
                         textAlignVertical: TextAlignVertical.top,
                         expands: true,
@@ -343,24 +346,24 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                         Expanded(
                           child: Slider(
                             padding: EdgeInsets.all(0),
-                            label: _currentSliderValue.truncate().toString(),
+                            label: provider.progress.truncate().toString(),
                             divisions: 5,
                             thumbColor:
-                                _currentSliderValue < 40
+                                provider.progress < 40
                                     ? AppColors.sliderRed
-                                    : _currentSliderValue < 80
+                                    : provider.progress < 80
                                     ? AppColors.cardYellow
                                     : AppColors.appGreen,
                             activeColor:
-                                _currentSliderValue < 40
+                                provider.progress < 40
                                     ? AppColors.sliderRed
-                                    : _currentSliderValue < 80
+                                    : provider.progress < 80
                                     ? AppColors.cardYellow
                                     : AppColors.appGreen,
-                            value: _currentSliderValue,
+                            value: provider.progress,
                             onChanged: (double value) {
                               setState(() {
-                                _currentSliderValue = value;
+                                provider.progress = value;
                               });
                             },
                             max: 100,
@@ -369,7 +372,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                         SizedBox(width: 10),
 
                         Text(
-                          "${_currentSliderValue.truncate().toString()}%",
+                          "${provider.progress.truncate().toString()}%",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -380,6 +383,37 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                     ),
 
                     SizedBox(height: 60),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (provider.titleController.text.isEmpty ||
+                              provider.subtitleController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Заполните поля")),
+                            );
+                          }
+                          provider.addMessage(
+                            provider.titleController.text,
+                            provider.subtitleController.text,
+                            provider.progress,
+                            provider.selectedDate,
+                            provider.selectedTime,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue, // Цвет фона
+                          foregroundColor: Colors.white, // Цвет текста
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              14,
+                            ), // Скругление углов
+                          ),
+                        ),
+                        child: Text("Add"),
+                      ),
+                    ),
+                    SizedBox(height: 60),
                   ],
                 ),
               ),
@@ -389,6 +423,4 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
       ),
     );
   }
-
-  double _currentSliderValue = 20;
 }
