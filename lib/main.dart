@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/features/onboarding/on_boarding_1.dart';
 import 'package:todo_app/models/todo.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/theme.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        home: const MainMenu(),
+        home: OnBoarding1(),
         theme: theme,
         debugShowCheckedModeBanner: false,
       ),
