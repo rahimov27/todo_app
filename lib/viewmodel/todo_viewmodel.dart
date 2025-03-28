@@ -60,11 +60,13 @@ class TodoViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTask(int index) async {
-    await Future.delayed(Duration(seconds: 1));
-    await _todoBox.deleteAt(index); // Удаляем задачу из Hive
-    todos = _todoBox.values.toList(); // Обновляем список
-    notifyListeners();
+  Future<void> deleteTask(int index) async {
+    if (index >= 0 && index < todos.length) {
+      final key = todos[index].key;
+      await _todoBox.delete(key);
+      todos = _todoBox.values.toList(); // Обновляем список
+      notifyListeners();
+    }
   }
 
   // void toggle(bool? value, int index) async {

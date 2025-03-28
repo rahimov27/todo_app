@@ -46,16 +46,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     shrinkWrap: true,
                     itemCount: provider.todos.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final todos = provider.todos.reversed.toList();
+                      final todo = provider.todos[index];
                       return Dismissible(
-                        key: Key(provider.todos[index].key.toString()),
+                        onDismissed: (direction) {
+                          Future.delayed(Duration(milliseconds: 100), () {
+                            provider.deleteTask(index);
+                            setState(() {});
+                          });
+                        },
+                        key: Key(todo.key.toString()),
                         child: HomeTodoCard(
-                          title: todos[index].title,
-                          subtitle:
-                              todos[index].subtitle ?? "Ничего не добавлено",
-                          time: todos[index].time,
-                          date: todos[index].date,
-                          progress: todos[index].progress,
+                          title: todo.title,
+                          subtitle: todo.subtitle ?? "Ничего не добавлено",
+                          time: todo.time,
+                          date: todo.date,
+                          progress: todo.progress,
                         ),
                       );
                     },
