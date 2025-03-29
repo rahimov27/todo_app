@@ -41,6 +41,7 @@ class HomeTodoCard extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.5,
                           child: Text(
+                            maxLines: 2,
                             title,
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,

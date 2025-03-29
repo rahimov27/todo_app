@@ -42,8 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 provider.todos.isNotEmpty
                     ? ConstrainedBox(
                       constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context).size.width * 0.1,
-                        maxHeight: MediaQuery.of(context).size.width * 0.85,
+                        minHeight: 200,
+                        maxHeight: MediaQuery.of(context).size.width * 0.90,
                       ),
                       child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
