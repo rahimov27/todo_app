@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 HomeWelcomeText(),
                 SizedBox(height: 14),
                 HomeSearch(),
-                SizedBox(height: 20),
+                SizedBox(height: 14),
                 provider.todos.isNotEmpty
                     ? ConstrainedBox(
                       constraints: BoxConstraints(
