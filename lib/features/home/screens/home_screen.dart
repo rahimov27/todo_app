@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/home/screens/add_folder_screen.dart';
 import 'package:todo_app/utils/app_colors.dart';
@@ -170,18 +172,32 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        floatingActionButton: Align(
-          alignment: Alignment(1, 1.03),
-          child: FloatingActionButton(
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddFolderScreen()),
-                ),
-            shape: CircleBorder(),
-            backgroundColor: Colors.white,
-            child: Icon(Icons.add),
-          ),
+        floatingActionButton: SpeedDial(
+          backgroundColor: Colors.white,
+          icon: Icons.add,
+          overlayOpacity: 0.4,
+          overlayColor: AppColors.scaffoldColor,
+          spacing: 10,
+          spaceBetweenChildren: 5,
+          children: [
+            SpeedDialChild(
+              shape: CircleBorder(),
+              child: SvgPicture.asset(
+                width: 22,
+                "assets/svg/folder.svg",
+                // ignore: deprecated_member_use
+                color: AppColors.cardBlue,
+              ),
+            ),
+            SpeedDialChild(
+              shape: CircleBorder(),
+              child: SvgPicture.asset(
+                "assets/svg/task.svg",
+                // ignore: deprecated_member_use
+                color: AppColors.appGreen,
+              ),
+            ),
+          ],
         ),
       ),
     );
