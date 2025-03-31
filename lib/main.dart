@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/todoFolder/model/todo_folder_model.dart';
+import 'package:todo_app/features/todoFolder/viewmodel/todo_folder_viewmodel.dart';
 import 'package:todo_app/models/todo.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/theme.dart';
@@ -36,8 +37,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TodoViewmodel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TodoViewmodel()),
+        ChangeNotifierProvider(create: (_) => TodoFolderViewmodel()),
+      ],
       child: MaterialApp(
         locale: Locale("ru", "RU"),
         supportedLocales: [Locale('ru', 'RU')],

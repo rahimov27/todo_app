@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/home/screens/add_folder_screen.dart';
+import 'package:todo_app/features/todoFolder/viewmodel/todo_folder_viewmodel.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/features/home/widgets/folder_card.dart';
 import 'package:todo_app/features/home/widgets/home_search.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final folderProvider = Provider.of<TodoFolderViewmodel>(context);
     final provider = Provider.of<TodoViewmodel>(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -166,6 +168,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: AppColors.cardYellow,
                     ),
                     SizedBox(height: 30),
+                    SizedBox(
+                      height: 500,
+                      child: ListView.builder(
+                        itemCount: folderProvider.folderModels.length,
+                        itemBuilder: (context, index) {
+                          return FolderCard(
+                            width: double.infinity,
+                            height: MediaQuery.of(context).size.width / 2.5,
+                            title: folderProvider.folderModels[index].title,
+                            subtitle:
+                                folderProvider.folderModels[index].subtitle,
+                            progress:
+                                folderProvider.folderModels[index].porgress,
+                            color: AppColors.appPurple,
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -235,6 +255,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     SizedBox(height: 8),
                                     TextField(
+                                      controller:
+                                          folderProvider.titleController,
                                       decoration: InputDecoration(
                                         hintText: "Название папки",
                                         filled: true,
@@ -272,6 +294,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     SizedBox(
                                       height: 150,
                                       child: TextField(
+                                        controller:
+                                            folderProvider.subtitleController,
                                         expands: true,
                                         maxLines: null,
                                         minLines: null,
@@ -347,7 +371,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: SizedBox(
                                             width: double.infinity,
                                             child: ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                folderProvider.addFolder();
+                                                Navigator.pop(context);
+                                                setState(() {});
+                                              },
                                               style: ButtonStyle(
                                                 overlayColor:
                                                     WidgetStateProperty.all(

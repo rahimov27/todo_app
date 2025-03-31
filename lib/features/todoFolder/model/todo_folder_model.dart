@@ -4,7 +4,7 @@ part 'todo_folder_model.g.dart';
 @HiveType(typeId: 1)
 class TodoFolderModel extends HiveObject {
   @HiveField(0)
-  int id;
+  String id;
   @HiveField(1)
   String title;
   @HiveField(2)
