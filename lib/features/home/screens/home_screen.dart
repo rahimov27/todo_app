@@ -181,6 +181,217 @@ class _HomeScreenState extends State<HomeScreen> {
           spaceBetweenChildren: 5,
           children: [
             SpeedDialChild(
+              onTap:
+                  () => showModalBottomSheet(
+                    useRootNavigator: true,
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return FractionallySizedBox(
+                        heightFactor: 0.57,
+                        widthFactor: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.scaffoldColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 20),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  width: 70,
+                                  height: 3,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color(0xffA9A9A9),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 20,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Название папки",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: "Montserrat-semibold",
+                                        color: Colors.white,
+                                        letterSpacing: -0.7,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        hintText: "Название папки",
+                                        filled: true,
+                                        fillColor: Color(0xff4A4A4A),
+                                        hintStyle: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          letterSpacing: -0.7,
+                                          fontSize: 16,
+                                          color: Color(0xffA5A5A5),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 22),
+                                    Text(
+                                      "Описание папки",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: "Montserrat-semibold",
+                                        color: Colors.white,
+                                        letterSpacing: -0.7,
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    SizedBox(
+                                      height: 150,
+                                      child: TextField(
+                                        expands: true,
+                                        maxLines: null,
+                                        minLines: null,
+                                        textAlignVertical:
+                                            TextAlignVertical.top,
+                                        decoration: InputDecoration(
+                                          hintText: "Название папки",
+                                          filled: true,
+                                          fillColor: Color(0xff4A4A4A),
+                                          hintStyle: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            letterSpacing: -0.7,
+                                            fontSize: 16,
+                                            color: Color(0xffA5A5A5),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide.none,
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 22),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              style: ButtonStyle(
+                                                overlayColor:
+                                                    WidgetStateProperty.all(
+                                                      Colors.transparent,
+                                                    ),
+                                                shape: WidgetStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                      color: Color(0xffEF0004),
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          10,
+                                                        ),
+                                                  ),
+                                                ),
+                                                backgroundColor:
+                                                    WidgetStateProperty.all(
+                                                      AppColors.scaffoldColor,
+                                                    ),
+                                              ),
+                                              child: Text(
+                                                "Отменить",
+                                                style: TextStyle(
+                                                  letterSpacing: -0.5,
+                                                  fontFamily: "Inter-Medium",
+                                                  fontSize: 16,
+                                                  color: Color(0xffEF0004),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              style: ButtonStyle(
+                                                overlayColor:
+                                                    WidgetStateProperty.all(
+                                                      Colors.transparent,
+                                                    ),
+                                                shape: WidgetStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                      color: Color(0xff004CFF),
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          10,
+                                                        ),
+                                                  ),
+                                                ),
+                                                backgroundColor:
+                                                    WidgetStateProperty.all(
+                                                      Color(0xff004CFF),
+                                                    ),
+                                              ),
+                                              child: Text(
+                                                "Создать",
+                                                style: TextStyle(
+                                                  fontFamily: "Inter-Medium",
+                                                  fontSize: 16,
+                                                  letterSpacing: -0.5,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
               shape: CircleBorder(),
               child: SvgPicture.asset(
                 width: 22,
@@ -190,6 +401,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SpeedDialChild(
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddFolderScreen()),
+                  ),
               shape: CircleBorder(),
               child: SvgPicture.asset(
                 "assets/svg/task.svg",
