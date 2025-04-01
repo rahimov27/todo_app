@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/home/screens/add_folder_screen.dart';
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           subtitle: "Пишите свои описания",
                           time: DateTime.now(),
                           date: DateTime.now(),
-                          progress: 35,
+                          progress: 80,
                         ),
                       ],
                     ),
@@ -109,29 +110,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 14),
 
                 folderProvider.folderModels.isNotEmpty
-                    ? SizedBox(
-                      height: 500, // Adjust the height if necessary
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: folderProvider.folderModels.length,
-                        itemBuilder: (context, index) {
-                          return FolderCard(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.width / 2.5,
-                            title: folderProvider.folderModels[index].title,
-                            subtitle:
-                                folderProvider.folderModels[index].subtitle,
-                            progress:
-                                folderProvider.folderModels[index].porgress,
-                            color:
-                                folderProvider
-                                    .folderModels[index]
-                                    .backgroundColor,
-                          );
-                        },
-                      ),
+                    ? Column(
+                      children: [
+                        MasonryGridView.builder(
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          itemCount: folderProvider.folderModels.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                          itemBuilder:
+                              (context, index) => FolderCard(
+                                width: double.infinity,
+                                height: (index % 3 == 0) ? 250 : 197,
+                                title: folderProvider.folderModels[index].title,
+                                subtitle:
+                                    folderProvider.folderModels[index].subtitle,
+                                progress:
+                                    folderProvider.folderModels[index].porgress,
+                                color:
+                                    folderProvider
+                                        .folderModels[index]
+                                        .backgroundColor,
+                              ),
+                        ),
+                      ],
                     )
-                    : StaticFolderCards(), // Display static cards if no folders
+                    : StaticFolderCards(),
               ],
             ),
           ),
@@ -199,6 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     SizedBox(height: 8),
                                     TextField(
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        letterSpacing: -0.7,
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
                                       controller:
                                           folderProvider.titleController,
                                       decoration: InputDecoration(
@@ -238,6 +252,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     SizedBox(
                                       height: 150,
                                       child: TextField(
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          letterSpacing: -0.7,
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
                                         controller:
                                             folderProvider.subtitleController,
                                         expands: true,

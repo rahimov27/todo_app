@@ -46,6 +46,8 @@ class TodoFolderViewmodel extends ChangeNotifier {
     );
     await _todoFolderBox.add(todoFolder);
     folderModels = _todoFolderBox.values.toList();
+    titleController.clear();
+    subtitleController.clear();
     notifyListeners();
   }
 

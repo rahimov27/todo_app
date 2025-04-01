@@ -50,6 +50,8 @@ class FolderCard extends StatelessWidget {
                     children: [
                       Text(
                         title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: TextStyle(
                           fontFamily: "Montserrat-semibold",
                           fontSize: 18,
@@ -61,6 +63,8 @@ class FolderCard extends StatelessWidget {
                       Spacer(),
                       Text(
                         subtitle,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 12,
@@ -125,7 +129,6 @@ class FolderCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 10),
       ],
     );
   }
