@@ -3,6 +3,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/home/screens/add_folder_screen.dart';
+import 'package:todo_app/features/home/widgets/select_color_widget.dart';
+import 'package:todo_app/features/home/widgets/static_folder_cards.dart';
 import 'package:todo_app/features/todoFolder/viewmodel/todo_folder_viewmodel.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/features/home/widgets/folder_card.dart';
@@ -94,83 +96,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                 // folders part
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 24),
-                    Text(
-                      "Папки",
-                      style: TextStyle(
-                        letterSpacing: -0.7,
-                        fontFamily: "Inter-Bold",
-                        fontSize: 28,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 14),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.10,
-                              height: MediaQuery.of(context).size.width / 1.3,
-                              title: "Задачи по работе и заводу",
-                              subtitle: "Заполнение всех документов на заводе!",
-                              progress: 30,
-                              color: AppColors.appPurple,
-                            ),
-                            SizedBox(height: 10),
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.10,
-                              height: MediaQuery.of(context).size.width / 2.5,
-                              title: "Задачи по дому",
-                              subtitle: "",
-                              progress: 60,
-                              color: AppColors.pink,
-                            ),
-                          ],
-                        ),
+                SizedBox(height: 24),
+                Text(
+                  "Папки",
+                  style: TextStyle(
+                    letterSpacing: -0.7,
+                    fontFamily: "Inter-Bold",
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 14),
 
-                        Spacer(),
-
-                        Column(
-                          children: [
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.50,
-                              height: MediaQuery.of(context).size.width / 1.7,
-                              title: "Задачи по курсам",
-                              subtitle: "Заполнение всех документов на заводе!",
-                              progress: 20,
-                              color: AppColors.cardBlue,
-                            ),
-                            SizedBox(height: 10),
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.50,
-                              height: MediaQuery.of(context).size.width / 1.7,
-                              title: "Задачи по учебе",
-                              subtitle: "Заполнение всех документов на заводе!",
-                              progress: 80,
-                              color: AppColors.appGreen,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    FolderCard(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.width / 2.5,
-                      title: "Задачи по курсам",
-                      subtitle: "",
-                      progress: 20,
-                      color: AppColors.cardYellow,
-                    ),
-                    SizedBox(height: 30),
-                    SizedBox(
-                      height: 500,
+                folderProvider.folderModels.isNotEmpty
+                    ? SizedBox(
+                      height: 500, // Adjust the height if necessary
                       child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: folderProvider.folderModels.length,
                         itemBuilder: (context, index) {
                           return FolderCard(
@@ -188,9 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                       ),
-                    ),
-                  ],
-                ),
+                    )
+                    : StaticFolderCards(), // Display static cards if no folders
               ],
             ),
           ),
@@ -474,24 +415,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class SelectColorWidget extends StatelessWidget {
-  final Color color;
-  const SelectColorWidget({super.key, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    final folderProvider = context.watch<TodoFolderViewmodel>();
-
-    bool isSelected = folderProvider.folderColorDefault == color;
-    return GestureDetector(
-      onTap: () {
-        folderProvider.selectColor(color);
-      },
-      child: CircleAvatar(radius: isSelected ? 16 : 20, backgroundColor: color),
     );
   }
 }
