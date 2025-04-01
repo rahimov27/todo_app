@@ -21,104 +21,112 @@ class FolderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: SvgPicture.asset(
-                "assets/svg/design-line.svg",
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: "Montserrat-semibold",
-                      fontSize: 18,
-                      letterSpacing: -0.5,
-                      height: 1,
-                      color: Colors.white,
-                    ),
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: SvgPicture.asset(
+                    "assets/svg/design-line.svg",
+                    fit: BoxFit.cover,
                   ),
-                  Spacer(),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 12,
-                      height: 1,
-                      color: AppColors.cardGrey,
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 10,
                   ),
-                  SizedBox(height: 15),
-                  Stack(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: progress * 1.4,
-                        height: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontFamily: "Montserrat-semibold",
+                          fontSize: 18,
+                          letterSpacing: -0.5,
+                          height: 1,
                           color: Colors.white,
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        height: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: const Color.fromARGB(30, 255, 255, 255),
+                      Spacer(),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 12,
+                          height: 1,
+                          color: AppColors.cardGrey,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Stack(
+                        children: [
+                          Container(
+                            width: progress * 1.4,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white,
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: const Color.fromARGB(30, 255, 255, 255),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Прогресс",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 12,
+                                height: 1,
+                                color: Colors.white,
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                            Text(
+                              "$progress%",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 12,
+                                letterSpacing: -0.7,
+                                height: 1,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Прогресс",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 12,
-                            height: 1,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                        Text(
-                          "$progress%",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 12,
-                            letterSpacing: -0.7,
-                            height: 1,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(height: 10),
+      ],
     );
   }
 }

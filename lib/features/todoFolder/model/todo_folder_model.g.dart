@@ -21,13 +21,15 @@ class TodoFolderModelAdapter extends TypeAdapter<TodoFolderModel> {
       title: fields[1] as String,
       porgress: fields[3] as int,
       subtitle: fields[2] as String,
+      // Считываем Color как int и преобразуем его в Color
+      backgroundColor: Color(fields[4] as int),
     );
   }
 
   @override
   void write(BinaryWriter writer, TodoFolderModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +37,10 @@ class TodoFolderModelAdapter extends TypeAdapter<TodoFolderModel> {
       ..writeByte(2)
       ..write(obj.subtitle)
       ..writeByte(3)
-      ..write(obj.porgress);
+      ..write(obj.porgress)
+      // Записываем Color как int
+      ..writeByte(4)
+      ..write(obj.backgroundColor.value);
   }
 
   @override

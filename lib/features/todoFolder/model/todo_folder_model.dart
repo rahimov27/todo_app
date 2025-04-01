@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:hive/hive.dart';
 part 'todo_folder_model.g.dart';
 
@@ -11,11 +13,14 @@ class TodoFolderModel extends HiveObject {
   String subtitle;
   @HiveField(3)
   int porgress;
+  @HiveField(4)
+  Color backgroundColor;
 
   TodoFolderModel({
     required this.id,
     required this.title,
     required this.porgress,
     required this.subtitle,
+    required this.backgroundColor
   });
 }

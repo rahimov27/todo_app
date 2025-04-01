@@ -181,7 +181,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 folderProvider.folderModels[index].subtitle,
                             progress:
                                 folderProvider.folderModels[index].porgress,
-                            color: AppColors.appPurple,
+                            color:
+                                folderProvider
+                                    .folderModels[index]
+                                    .backgroundColor,
                           );
                         },
                       ),
@@ -209,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     isScrollControlled: true,
                     builder: (context) {
                       return FractionallySizedBox(
-                        heightFactor: 0.57,
+                        heightFactor: 0.60,
                         widthFactor: 1,
                         child: Container(
                           decoration: BoxDecoration(
@@ -326,6 +329,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 22),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SelectColorWidget(
+                                          color: AppColors.appPurple,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.cardBlue,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.cardYellow,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.appGreen,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.pink,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.sliderRed,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 22),
+                                    // buttons part
                                     Row(
                                       children: [
                                         Expanded(
@@ -444,6 +474,24 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SelectColorWidget extends StatelessWidget {
+  final Color color;
+  const SelectColorWidget({super.key, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    final folderProvider = context.watch<TodoFolderViewmodel>();
+
+    bool isSelected = folderProvider.folderColorDefault == color;
+    return GestureDetector(
+      onTap: () {
+        folderProvider.selectColor(color);
+      },
+      child: CircleAvatar(radius: isSelected ? 16 : 20, backgroundColor: color),
     );
   }
 }
