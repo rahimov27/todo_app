@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/home/screens/add_folder_screen.dart';
+import 'package:todo_app/features/home/widgets/select_color_widget.dart';
+import 'package:todo_app/features/home/widgets/static_folder_cards.dart';
 import 'package:todo_app/features/todoFolder/viewmodel/todo_folder_viewmodel.dart';
 import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/features/home/widgets/folder_card.dart';
@@ -88,106 +91,55 @@ class _HomeScreenState extends State<HomeScreen> {
                           subtitle: "Пишите свои описания",
                           time: DateTime.now(),
                           date: DateTime.now(),
-                          progress: 35,
+                          progress: 80,
                         ),
                       ],
                     ),
 
                 // folders part
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 24),
-                    Text(
-                      "Папки",
-                      style: TextStyle(
-                        letterSpacing: -0.7,
-                        fontFamily: "Inter-Bold",
-                        fontSize: 28,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 14),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 24),
+                Text(
+                  "Папки",
+                  style: TextStyle(
+                    letterSpacing: -0.7,
+                    fontFamily: "Inter-Bold",
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 14),
+
+                folderProvider.folderModels.isNotEmpty
+                    ? Column(
                       children: [
-                        Column(
-                          children: [
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.10,
-                              height: MediaQuery.of(context).size.width / 1.3,
-                              title: "Задачи по работе и заводу",
-                              subtitle: "Заполнение всех документов на заводе!",
-                              progress: 30,
-                              color: AppColors.appPurple,
-                            ),
-                            SizedBox(height: 10),
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.10,
-                              height: MediaQuery.of(context).size.width / 2.5,
-                              title: "Задачи по дому",
-                              subtitle: "",
-                              progress: 60,
-                              color: AppColors.pink,
-                            ),
-                          ],
-                        ),
-
-                        Spacer(),
-
-                        Column(
-                          children: [
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.50,
-                              height: MediaQuery.of(context).size.width / 1.7,
-                              title: "Задачи по курсам",
-                              subtitle: "Заполнение всех документов на заводе!",
-                              progress: 20,
-                              color: AppColors.cardBlue,
-                            ),
-                            SizedBox(height: 10),
-                            FolderCard(
-                              width: MediaQuery.of(context).size.width / 2.50,
-                              height: MediaQuery.of(context).size.width / 1.7,
-                              title: "Задачи по учебе",
-                              subtitle: "Заполнение всех документов на заводе!",
-                              progress: 80,
-                              color: AppColors.appGreen,
-                            ),
-                          ],
+                        MasonryGridView.builder(
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          itemCount: folderProvider.folderModels.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                          itemBuilder:
+                              (context, index) => FolderCard(
+                                width: double.infinity,
+                                height: (index % 3 == 0) ? 250 : 197,
+                                title: folderProvider.folderModels[index].title,
+                                subtitle:
+                                    folderProvider.folderModels[index].subtitle,
+                                progress:
+                                    folderProvider.folderModels[index].porgress,
+                                color:
+                                    folderProvider
+                                        .folderModels[index]
+                                        .backgroundColor,
+                              ),
                         ),
                       ],
-                    ),
-                    SizedBox(height: 10),
-                    FolderCard(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.width / 2.5,
-                      title: "Задачи по курсам",
-                      subtitle: "",
-                      progress: 20,
-                      color: AppColors.cardYellow,
-                    ),
-                    SizedBox(height: 30),
-                    SizedBox(
-                      height: 500,
-                      child: ListView.builder(
-                        itemCount: folderProvider.folderModels.length,
-                        itemBuilder: (context, index) {
-                          return FolderCard(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.width / 2.5,
-                            title: folderProvider.folderModels[index].title,
-                            subtitle:
-                                folderProvider.folderModels[index].subtitle,
-                            progress:
-                                folderProvider.folderModels[index].porgress,
-                            color: AppColors.appPurple,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                    )
+                    : StaticFolderCards(),
               ],
             ),
           ),
@@ -209,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     isScrollControlled: true,
                     builder: (context) {
                       return FractionallySizedBox(
-                        heightFactor: 0.57,
+                        heightFactor: 0.60,
                         widthFactor: 1,
                         child: Container(
                           decoration: BoxDecoration(
@@ -255,6 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     SizedBox(height: 8),
                                     TextField(
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        letterSpacing: -0.7,
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
                                       controller:
                                           folderProvider.titleController,
                                       decoration: InputDecoration(
@@ -294,6 +252,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     SizedBox(
                                       height: 150,
                                       child: TextField(
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          letterSpacing: -0.7,
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
                                         controller:
                                             folderProvider.subtitleController,
                                         expands: true,
@@ -326,6 +290,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 22),
+
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SelectColorWidget(
+                                          color: AppColors.appPurple,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.cardBlue,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.cardYellow,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.appGreen,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.pink,
+                                        ),
+                                        SelectColorWidget(
+                                          color: AppColors.sliderRed,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 22),
+                                    // buttons part
                                     Row(
                                       children: [
                                         Expanded(
