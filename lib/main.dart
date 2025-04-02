@@ -12,7 +12,6 @@ import 'package:todo_app/utils/app_colors.dart';
 import 'package:todo_app/utils/theme.dart';
 import 'package:todo_app/features/category/category_screen.dart';
 import 'package:todo_app/features/folder/folder_screen.dart';
-import 'package:todo_app/features/profile/profile_screen.dart';
 import 'package:todo_app/features/home/screens/home_screen.dart';
 import 'package:todo_app/viewmodel/todo_viewmodel.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -76,12 +75,7 @@ class _MainMenuState extends State<MainMenu> {
 
   // Список экранов
   List<Widget> _buildScreens() {
-    return [
-      HomeScreen(),
-      const FolderScreen(),
-      const CategoryScreen(),
-      const ProfileScreen(),
-    ];
+    return [HomeScreen(), const FolderScreen(), const CategoryScreen()];
   }
 
   // Иконки нижнего меню
@@ -103,11 +97,6 @@ class _MainMenuState extends State<MainMenu> {
           width: 24,
           height: 24,
         ),
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: SvgPicture.asset("assets/svg/profile.svg", width: 24, height: 24),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),
