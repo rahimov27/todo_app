@@ -1,39 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:todo_app/features/home/widgets/folder_card.dart';
-import 'package:todo_app/utils/app_colors.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/features/home/widgets/home_todo_card.dart';
+import 'package:todo_app/features/home/viewmodel/todo_viewmodel.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final todoProvider = Provider.of<TodoViewmodel>(context);
+    print(todoProvider.todos.length);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: MasonryGridView.builder(
-          itemCount: 10,
-          gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          itemBuilder:
-              (context, index) => FolderCard(
-                width: double.infinity,
-                height: (index % 4 == 0) ? 300 : 200,
-                title: "folderProvider.folderModels[index].title",
-                subtitle: "folderProvider.folderModels[index].title",
-                progress: 35,
-                color: AppColors.appGreen,
-              ),
-          // (context, index) => Container(
-          //   height: (index % 4 == 0) ? 300 : 200, // Чередуем размеры
-          //   decoration: BoxDecoration(
-          //     color: Colors.blueAccent,
-          //     borderRadius: BorderRadius.circular(12),
-          //   ),
-          // ),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: todoProvider.todos.length,
+          itemBuilder: (context, index) {
+            return HomeTodoCard(
+              title: todoProvider.todos[index].title,
+              subtitle: todoProvider.todos[index].subtitle ?? "Нету",
+              time: todoProvider.todos[index].time,
+              date: todoProvider.todos[index].date,
+              progress: todoProvider.todos[index].progress,
+            );
+          },
         ),
       ),
     );

@@ -26,10 +26,10 @@ class TodoViewmodel extends ChangeNotifier {
     initHive();
   }
 
-  void initHive() async {
+  Future<void> initHive() async {
     // await Hive.deleteBoxFromDisk("todos");
     _todoBox = await Hive.openBox<Todo>('todos');
-    getMessage();
+    await getMessage();
   }
 
   void addMessage(
@@ -55,7 +55,7 @@ class TodoViewmodel extends ChangeNotifier {
     // Логика выбора даты
   }
 
-  void getMessage() {
+  Future<void> getMessage() async {
     todos = _todoBox.values.toList();
     notifyListeners();
   }

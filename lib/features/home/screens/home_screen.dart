@@ -12,7 +12,7 @@ import 'package:todo_app/features/home/widgets/folder_card.dart';
 import 'package:todo_app/features/home/widgets/home_search.dart';
 import 'package:todo_app/features/home/widgets/home_todo_card.dart';
 import 'package:todo_app/features/home/widgets/home_welcome_text.dart';
-import 'package:todo_app/viewmodel/todo_viewmodel.dart';
+import 'package:todo_app/features/home/viewmodel/todo_viewmodel.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

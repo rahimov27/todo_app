@@ -13,7 +13,7 @@ import 'package:todo_app/utils/theme.dart';
 import 'package:todo_app/features/category/category_screen.dart';
 import 'package:todo_app/features/folder/folder_screen.dart';
 import 'package:todo_app/features/home/screens/home_screen.dart';
-import 'package:todo_app/viewmodel/todo_viewmodel.dart';
+import 'package:todo_app/features/home/viewmodel/todo_viewmodel.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
