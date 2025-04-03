@@ -63,4 +63,10 @@ class TodoFolderViewmodel extends ChangeNotifier {
     folderColorDefault = color;
     notifyListeners();
   }
+
+  Future<void> deleteFolder(int index) async {
+    await _todoFolderBox.deleteAt(index);
+    folderModels = _todoFolderBox.values.toList();
+    notifyListeners();
+  }
 }

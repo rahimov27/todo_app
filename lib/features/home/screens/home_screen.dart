@@ -113,60 +113,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 folderProvider.folderModels.isNotEmpty
                     ? Column(
                       children: [
-                        SelectionContainer.disabled(
-                          child: MasonryGridView.builder(
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            itemCount: folderProvider.folderModels.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                ),
-                            itemBuilder:
-                                (context, index) => CupertinoContextMenu(
-                                  actions: [
-                                    CupertinoContextMenuAction(
-                                      onPressed: () {
-                                        print("deleted");
+                        MasonryGridView.builder(
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          itemCount: folderProvider.folderModels.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                          itemBuilder:
+                              (context, index) => CupertinoContextMenu(
+                                actions: [
+                                  CupertinoContextMenuAction(
+                                    onPressed: () {
+                                      if (folderProvider
+                                          .folderModels
+                                          .isNotEmpty) {
+                                        folderProvider.deleteFolder(index);
                                         Navigator.of(
                                           context,
                                           rootNavigator: true,
                                         ).pop();
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Text("Delete"),
-                                          SizedBox(width: 10),
-                                          Icon(Icons.delete),
-                                        ],
-                                      ),
+                                      } else {
+                                        print("error");
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text("Delete"),
+                                        SizedBox(width: 10),
+                                        Icon(Icons.delete),
+                                      ],
                                     ),
-                                  ],
-                                  child: FolderCard(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    height: (index % 3 == 0) ? 250 : 197,
-                                    title:
-                                        folderProvider
-                                            .folderModels[index]
-                                            .title,
-                                    subtitle:
-                                        folderProvider
-                                            .folderModels[index]
-                                            .subtitle,
-                                    progress:
-                                        folderProvider
-                                            .folderModels[index]
-                                            .porgress,
-                                    color:
-                                        folderProvider
-                                            .folderModels[index]
-                                            .backgroundColor,
                                   ),
+                                ],
+                                child: FolderCard(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height: (index % 3 == 0) ? 250 : 197,
+                                  title:
+                                      folderProvider.folderModels[index].title,
+                                  subtitle:
+                                      folderProvider
+                                          .folderModels[index]
+                                          .subtitle,
+                                  progress:
+                                      folderProvider
+                                          .folderModels[index]
+                                          .porgress,
+                                  color:
+                                      folderProvider
+                                          .folderModels[index]
+                                          .backgroundColor,
                                 ),
-                          ),
+                              ),
                         ),
                       ],
                     )
