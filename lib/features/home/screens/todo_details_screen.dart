@@ -371,7 +371,11 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                         Expanded(
                           child: Slider(
                             padding: EdgeInsets.all(0),
-                            label: provider.progress.toString(),
+                            label:
+                                provider.progress
+                                    .toDouble()
+                                    .truncate()
+                                    .toString(),
                             divisions: 5,
                             thumbColor:
                                 provider.progress < 40
