@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/features/home/screens/add_folder_screen.dart';
+import 'package:todo_app/features/home/screens/todo_details_screen.dart';
 import 'package:todo_app/features/home/widgets/select_color_widget.dart';
 import 'package:todo_app/features/home/widgets/static_folder_cards.dart';
 import 'package:todo_app/features/todoFolder/viewmodel/todo_folder_viewmodel.dart';
@@ -67,12 +68,35 @@ class _HomeScreenState extends State<HomeScreen> {
                               });
                             },
                             key: Key(todo.key.toString()),
-                            child: HomeTodoCard(
-                              title: todo.title,
-                              subtitle: todo.subtitle ?? "Ничего не добавлено",
-                              time: todo.time,
-                              date: todo.date,
-                              progress: todo.progress,
+                            child: GestureDetector(
+                              onTap:
+                                  () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => TodoDetailsScreen(
+                                            index: index,
+                                            title: provider.todos[index].title,
+                                            subtitle:
+                                                provider
+                                                    .todos[index]
+                                                    .subtitle ??
+                                                "",
+                                            time: provider.todos[index].time,
+                                            date: provider.todos[index].date,
+                                            progress:
+                                                provider.todos[index].progress,
+                                          ),
+                                    ),
+                                  ),
+                              child: HomeTodoCard(
+                                title: todo.title,
+                                subtitle:
+                                    todo.subtitle ?? "Ничего не добавлено",
+                                time: todo.time,
+                                date: todo.date,
+                                progress: todo.progress,
+                              ),
                             ),
                           );
                         },

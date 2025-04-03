@@ -116,4 +116,25 @@ class TodoViewmodel extends ChangeNotifier {
     todos = []; // Очищаем список задач в приложении
     notifyListeners(); // Уведомляем слушателей об изменении
   }
+
+  void updateTask(
+    int index, // Принимаем индекс в списке
+    String title,
+    String subtitle,
+    DateTime time,
+    DateTime date,
+    double progress,
+  ) async {
+    if (index >= 0 && index < todos.length) {
+      final todo = todos[index];
+      todo.title = title;
+      todo.subtitle = subtitle;
+      todo.time = time;
+      todo.date = date;
+      todo.progress = progress;
+
+      await _todoBox.put(todo.key, todo);
+      notifyListeners();
+    }
+  }
 }
