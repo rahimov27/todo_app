@@ -8,4 +8,10 @@ ThemeData theme = ThemeData(
     surfaceTintColor: Colors.transparent,
     toolbarHeight: 0,
   ),
+  textSelectionTheme: TextSelectionThemeData(
+    selectionColor: Colors.transparent,
+    selectionHandleColor: Colors.transparent,
+    cursorColor: Colors.transparent,
+  ),
+  
 );

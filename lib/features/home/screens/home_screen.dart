@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -112,30 +113,60 @@ class _HomeScreenState extends State<HomeScreen> {
                 folderProvider.folderModels.isNotEmpty
                     ? Column(
                       children: [
-                        MasonryGridView.builder(
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          itemCount: folderProvider.folderModels.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                              ),
-                          itemBuilder:
-                              (context, index) => FolderCard(
-                                width: double.infinity,
-                                height: (index % 3 == 0) ? 250 : 197,
-                                title: folderProvider.folderModels[index].title,
-                                subtitle:
-                                    folderProvider.folderModels[index].subtitle,
-                                progress:
-                                    folderProvider.folderModels[index].porgress,
-                                color:
-                                    folderProvider
-                                        .folderModels[index]
-                                        .backgroundColor,
-                              ),
+                        SelectionContainer.disabled(
+                          child: MasonryGridView.builder(
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            itemCount: folderProvider.folderModels.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                ),
+                            itemBuilder:
+                                (context, index) => CupertinoContextMenu(
+                                  actions: [
+                                    CupertinoContextMenuAction(
+                                      onPressed: () {
+                                        print("deleted");
+                                        Navigator.of(
+                                          context,
+                                          rootNavigator: true,
+                                        ).pop();
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text("Delete"),
+                                          SizedBox(width: 10),
+                                          Icon(Icons.delete),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                  child: FolderCard(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    height: (index % 3 == 0) ? 250 : 197,
+                                    title:
+                                        folderProvider
+                                            .folderModels[index]
+                                            .title,
+                                    subtitle:
+                                        folderProvider
+                                            .folderModels[index]
+                                            .subtitle,
+                                    progress:
+                                        folderProvider
+                                            .folderModels[index]
+                                            .porgress,
+                                    color:
+                                        folderProvider
+                                            .folderModels[index]
+                                            .backgroundColor,
+                                  ),
+                                ),
+                          ),
                         ),
                       ],
                     )

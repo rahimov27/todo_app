@@ -48,10 +48,7 @@ class FolderCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                      DefaultTextStyle(
                         style: TextStyle(
                           fontFamily: "Montserrat-semibold",
                           fontSize: 18,
@@ -59,17 +56,24 @@ class FolderCard extends StatelessWidget {
                           height: 1,
                           color: Colors.white,
                         ),
+                        child: Text(
+                          title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
                       ),
                       Spacer(),
-                      Text(
-                        subtitle,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                      DefaultTextStyle(
                         style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 12,
                           height: 1,
                           color: AppColors.cardGrey,
+                        ),
+                        child: Text(
+                          subtitle,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
                       ),
                       SizedBox(height: 15),
@@ -99,8 +103,7 @@ class FolderCard extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Прогресс",
+                            DefaultTextStyle(
                               style: TextStyle(
                                 fontFamily: "Inter",
                                 fontSize: 12,
@@ -108,9 +111,9 @@ class FolderCard extends StatelessWidget {
                                 color: Colors.white,
                                 letterSpacing: -0.5,
                               ),
+                              child: Text("Прогресс"),
                             ),
-                            Text(
-                              "$progress%",
+                            DefaultTextStyle(
                               style: TextStyle(
                                 fontFamily: "Inter",
                                 fontSize: 12,
@@ -118,6 +121,7 @@ class FolderCard extends StatelessWidget {
                                 height: 1,
                                 color: Colors.white,
                               ),
+                              child: Text("$progress%"),
                             ),
                           ],
                         ),
