@@ -49,6 +49,8 @@ class TodoViewmodel extends ChangeNotifier {
     );
     await _todoBox.add(todo);
     todos = _todoBox.values.toList();
+    titleController.clear();
+    subtitleController.clear();
     notifyListeners();
   }
 
