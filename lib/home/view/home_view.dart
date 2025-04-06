@@ -52,10 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Dismissible(
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) {
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              provider.deleteTask(index);
-                              setState(() {});
-                            });
+                            // Directly call deleteTask without delay
+                            provider.deleteTask(index);
                           },
                           key: Key(todo.key.toString()),
                           child: GestureDetector(

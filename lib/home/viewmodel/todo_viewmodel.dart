@@ -64,9 +64,15 @@ class TodoViewmodel extends ChangeNotifier {
   Future<void> deleteTask(int index) async {
     if (index >= 0 && index < todos.length) {
       final key = todos[index].key;
-      await _todoBox.delete(key);
-      todos = _todoBox.values.toList(); // Обновляем список
-      notifyListeners();
+      print("Deleting task with key: $key");
+
+      await _todoBox.delete(key); // Delete the task
+
+      List<Todo> updatedTodos = _todoBox.values.toList().cast<Todo>();
+      print("Updated todos: $updatedTodos");
+
+      todos = updatedTodos; // Update the todos list
+      notifyListeners(); // Notify listeners to rebuild UI
     }
   }
 

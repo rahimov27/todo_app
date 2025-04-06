@@ -72,7 +72,7 @@ class HomeTodoCard extends StatelessWidget {
                             SvgPicture.asset("assets/svg/date.svg"),
                             SizedBox(width: 4),
                             Text(
-                              DateFormat("yy MMMM", "ru").format(date),
+                              DateFormat("dd MMMM", "ru").format(date),
                               style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.timeColor,

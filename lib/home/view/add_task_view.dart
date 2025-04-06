@@ -27,7 +27,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: provider.randomColor(),
+                  color: AppColors.appPurple,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
