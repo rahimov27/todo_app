@@ -160,9 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           context,
                                           rootNavigator: true,
                                         ).pop();
-                                      } else {
-                                        print("error");
-                                      }
+                                      } else {}
                                     },
                                     child: Row(
                                       children: [
