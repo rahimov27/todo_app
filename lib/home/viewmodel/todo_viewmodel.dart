@@ -68,13 +68,14 @@ class TodoViewmodel extends ChangeNotifier {
       final key = todos[index].key;
       print("Deleting task with key: $key");
 
-      await _todoBox.delete(key); // Delete the task
+      // Delete the task asynchronously
+      await _todoBox.delete(key);
 
-      List<Todo> updatedTodos = _todoBox.values.toList().cast<Todo>();
-      print("Updated todos: $updatedTodos");
+      // Wait for the deletion to complete and refresh the list of tasks
+      todos = _todoBox.values.toList(); // Ensure the list is refreshed
+      print("Updated todos after deletion: $todos");
 
-      todos = updatedTodos; // Update the todos list
-      notifyListeners(); // Notify listeners to rebuild UI
+      notifyListeners(); // Notify listeners to update the UI
     }
   }
 

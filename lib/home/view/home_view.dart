@@ -51,9 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             provider.displayTodos.reversed.toList()[index];
                         return Dismissible(
                           direction: DismissDirection.endToStart,
-                          onDismissed: (direction) {
-                            // Directly call deleteTask without delay
-                            provider.deleteTask(index);
+                          onDismissed: (direction) async {
+                            await provider.deleteTask(index);
+
+                            setState(() {});
                           },
                           key: Key(todo.key.toString()),
                           child: GestureDetector(
