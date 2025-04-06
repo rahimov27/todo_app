@@ -49,13 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       itemBuilder: (BuildContext context, int index) {
                         final todo =
-                            provider.displayTodos.reversed.toList()[index];
+                            provider.displayTodos[provider.displayTodos.length -
+                                1 -
+                                index]; // Adjust index based on reversed list
 
                         return Dismissible(
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) async {
-                            await provider.deleteTask(index);
-                            setState(() {});
+                            // Delete the task based on the actual index in the original list
+                            await provider.deleteTask(
+                              provider.displayTodos.length - 1 - index,
+                            ); // Pass the correct index for deletion
                           },
                           key: Key(todo.key.toString()),
                           child: GestureDetector(
@@ -70,8 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           time: todo.time,
                                           date: todo.date,
                                           progress: todo.progress,
-                                          index:
-                                              todo.key, // You can use key as an identifier for the todo
+                                          index: todo.key,
                                         ),
                                   ),
                                 ),
