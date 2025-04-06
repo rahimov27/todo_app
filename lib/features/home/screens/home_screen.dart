@@ -415,6 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         SizedBox(width: 10),
+
                                         Expanded(
                                           child: SizedBox(
                                             width: double.infinity,
