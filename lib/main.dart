@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/features/noti_service.dart';
 import 'package:todo_app/features/todoFolder/model/todo_folder_model.dart';
 import 'package:todo_app/features/todoFolder/viewmodel/todo_folder_viewmodel.dart';
 import 'package:todo_app/models/todo.dart';
@@ -18,6 +19,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotiService().initNotification();
   await Hive.initFlutter();
   await initializeDateFormatting("ru", null);
   Hive.registerAdapter(TodoAdapter());

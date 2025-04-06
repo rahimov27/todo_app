@@ -9,6 +9,7 @@ import 'package:todo_app/utils/app_colors.dart';
 class TodoViewmodel extends ChangeNotifier {
   late Box<Todo> _todoBox;
   List<Todo> todos = [];
+  List<Todo> filteredTodos = [];
   bool isImportant = false;
 
   // controller
@@ -115,5 +116,45 @@ class TodoViewmodel extends ChangeNotifier {
     await _todoBox.clear(); // Удаляем все задачи
     todos = []; // Очищаем список задач в приложении
     notifyListeners(); // Уведомляем слушателей об изменении
+  }
+
+  void updateTask(
+    int index, // Принимаем индекс в списке
+    String title,
+    String subtitle,
+    DateTime time,
+    DateTime date,
+    double progress,
+  ) async {
+    if (index >= 0 && index < todos.length) {
+      final todo = todos[index];
+      todo.title = title;
+      todo.subtitle = subtitle;
+      todo.time = time;
+      todo.date = date;
+      todo.progress = progress;
+
+      await _todoBox.put(todo.key, todo);
+      notifyListeners();
+    }
+  }
+
+  void searchTodos(String query) {
+    if (query.isEmpty) {
+      filteredTodos = todos;
+    } else {
+      filteredTodos =
+          todos
+              .where(
+                (todo) =>
+                    todo.title.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
+    }
+    notifyListeners();
+  }
+
+  List<Todo> get displayTodos {
+    return filteredTodos.isNotEmpty ? filteredTodos : todos;
   }
 }

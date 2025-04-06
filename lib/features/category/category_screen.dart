@@ -12,39 +12,32 @@ class CategoryScreen extends StatelessWidget {
     final todoProvider = Provider.of<TodoViewmodel>(context);
     return Scaffold(
       appBar: AppBar(),
-      body:
-          todoProvider.todos.isNotEmpty
-              ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Column(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Column(
+          children: [
+            SizedBox(height: 24),
+            HomeSearch(onChanged: (value) => todoProvider.searchTodos(value)),
+            SizedBox(height: 24),
+            todoProvider.displayTodos.isNotEmpty
+                ? Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: todoProvider.displayTodos.length,
+                    itemBuilder: (context, index) {
+                      final todo = todoProvider.displayTodos[index];
+                      return HomeTodoCard(
+                        title: todo.title,
+                        subtitle: todo.subtitle ?? "Нету",
+                        time: todo.time,
+                        date: todo.date,
+                        progress: todo.progress,
+                      );
+                    },
+                  ),
+                )
+                : Column(
                   children: [
-                    SizedBox(height: 24),
-                    HomeSearch(),
-                    SizedBox(height: 24),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: todoProvider.todos.length,
-                      itemBuilder: (context, index) {
-                        return HomeTodoCard(
-                          title: todoProvider.todos[index].title,
-                          subtitle:
-                              todoProvider.todos[index].subtitle ?? "Нету",
-                          time: todoProvider.todos[index].time,
-                          date: todoProvider.todos[index].date,
-                          progress: todoProvider.todos[index].progress,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              )
-              : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Column(
-                  children: [
-                    SizedBox(height: 24),
-                    HomeSearch(),
-                    SizedBox(height: 24),
                     HomeTodoCard(
                       title: "Добавляйте свои задачи",
                       subtitle: "Пишите свои описания",
@@ -61,7 +54,9 @@ class CategoryScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+          ],
+        ),
+      ),
     );
   }
 }
