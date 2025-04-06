@@ -3,25 +3,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/utils/app_colors.dart';
 
 class HomeSearch extends StatelessWidget {
-  const HomeSearch({
-    super.key,
-  });
+  final ValueChanged<String>? onChanged;
+  const HomeSearch({super.key, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
       child: TextField(
+        onChanged: onChanged,
         cursorColor: AppColors.textFieldText,
-        style: TextStyle(
-          fontFamily: "Montserrat",
-          color: Colors.white,
-        ),
+        style: TextStyle(fontFamily: "Montserrat", color: Colors.white),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 12,
-          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           suffixIcon: Padding(
             padding: const EdgeInsets.all(12.0),
             child: SvgPicture.asset("assets/svg/search.svg"),

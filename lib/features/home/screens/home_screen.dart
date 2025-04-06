@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? ConstrainedBox(
                       constraints: BoxConstraints(
                         minHeight: 200,
-                        maxHeight: MediaQuery.of(context).size.width * 0.90,
+                        maxHeight: MediaQuery.of(context).size.width * 0.85,
                       ),
                       child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
