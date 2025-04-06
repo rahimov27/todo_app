@@ -52,7 +52,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                 height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: provider.randomColor(),
+                  color: AppColors.appPurple,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
@@ -359,9 +359,10 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           ),
                         ),
                         child: Text(
-                          "Добавить задачу",
+                          "Изменить",
                           style: TextStyle(
                             fontSize: 16,
+                            fontWeight: FontWeight.bold,
                             fontFamily: "Montserrat-medium",
                           ),
                         ),
