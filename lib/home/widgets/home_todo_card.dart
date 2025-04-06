@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/utils/app_colors.dart';
-import 'package:todo_app/features/home/widgets/circular_progress_bar.dart';
+import 'package:todo_app/home/widgets/circular_progress_bar.dart';
 
 class HomeTodoCard extends StatelessWidget {
   final String title, subtitle;
@@ -82,25 +82,25 @@ class HomeTodoCard extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 15),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.appGreen,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4,
-                              horizontal: 16,
-                            ),
-                            child: Text(
-                              "Учеба",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Inter-semibold",
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     color: AppColors.appGreen,
+                        //     borderRadius: BorderRadius.circular(100),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //       vertical: 4,
+                        //       horizontal: 16,
+                        //     ),
+                        //     child: Text(
+                        //       "Учеба",
+                        //       style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontFamily: "Inter-semibold",
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     Spacer(),

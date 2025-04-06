@@ -1,19 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/home/viewmodel/todo_viewmodel.dart';
 import 'package:todo_app/utils/app_colors.dart';
-import 'package:todo_app/features/home/viewmodel/todo_viewmodel.dart';
 
-class AddFolderScreen extends StatefulWidget {
-  const AddFolderScreen({super.key});
+// ignore: must_be_immutable
+class TodoDetailsScreen extends StatefulWidget {
+  final String title, subtitle;
+  final DateTime time, date;
+  double progress;
+  final int index;
+
+  TodoDetailsScreen({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.time,
+    required this.date,
+    required this.progress,
+    required this.index,
+  });
 
   @override
-  State<AddFolderScreen> createState() => _AddFolderScreenState();
+  State<TodoDetailsScreen> createState() => _TodoDetailsScreenState();
 }
 
-class _AddFolderScreenState extends State<AddFolderScreen> {
+class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final provider = Provider.of<TodoViewmodel>(context, listen: false);
+    provider.titleController.text = widget.title;
+    provider.subtitleController.text = widget.subtitle;
+    provider.selectedTime = widget.time;
+    provider.selectedDate = widget.date;
+    provider.progress = widget.progress;
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TodoViewmodel>(context);
@@ -76,7 +101,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                             ),
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(0),
-                              hintText: "Мы любим животных и стараемся",
+                              hintText: widget.title,
                               hintStyle: TextStyle(
                                 fontSize: 22,
                                 fontFamily: "Inter-semibold",
@@ -247,90 +272,9 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                       ),
                     ),
                     SizedBox(height: 24),
-                    Text(
-                      "Под задачи",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "Inter-semibold",
-                        color: Colors.white,
-                        letterSpacing: -0.7,
-                      ),
-                    ),
                     SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.textField,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 14,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Заполнить анкету",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Inter-Medium",
-                                color: Colors.white,
-                                letterSpacing: -0.5,
-                              ),
-                            ),
-                            SvgPicture.asset("assets/svg/checked.svg"),
-                          ],
-                        ),
-                      ),
-                    ),
+
                     SizedBox(height: 6),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.textField,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 14,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Заполнить анкету",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Inter-Medium",
-                                color: Colors.white,
-                                letterSpacing: -0.5,
-                              ),
-                            ),
-                            SvgPicture.asset("assets/svg/checked.svg"),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue, // Цвет фона
-                          foregroundColor: Colors.white, // Цвет текста
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              14,
-                            ), // Скругление углов
-                          ),
-                        ),
-                        child: Icon(Icons.add, color: Colors.white),
-                      ),
-                    ),
                     Text(
                       "Прогресс",
                       style: TextStyle(
@@ -346,7 +290,11 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                         Expanded(
                           child: Slider(
                             padding: EdgeInsets.all(0),
-                            label: provider.progress.truncate().toString(),
+                            label:
+                                provider.progress
+                                    .toDouble()
+                                    .truncate()
+                                    .toString(),
                             divisions: 5,
                             thumbColor:
                                 provider.progress < 40
@@ -364,7 +312,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                                     : provider.progress < 80
                                     ? const Color.fromARGB(255, 104, 227, 76)
                                     : AppColors.appGreen,
-                            value: provider.progress,
+                            value: double.parse(provider.progress.toString()),
                             onChanged: (double value) {
                               setState(() {
                                 provider.progress = value;
@@ -375,7 +323,7 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          "${provider.progress.truncate().toString()}%",
+                          "${widget.progress.truncate().toString()}%",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -384,28 +332,22 @@ class _AddFolderScreenState extends State<AddFolderScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 60),
+                    SizedBox(height: 30),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (provider.titleController.text.isEmpty ||
-                              provider.subtitleController.text.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Заполните поля")),
-                            );
-                          } else {
-                            provider.addMessage(
-                              provider.titleController.text,
-                              provider.subtitleController.text,
-                              provider.progress,
-                              provider.selectedDate,
-                              provider.selectedTime,
-                            );
-                            provider.titleController.clear();
-                            provider.subtitleController.clear();
-                            Navigator.pop(context);
-                          }
+                          provider.updateTask(
+                            widget.index,
+                            provider.titleController.text,
+                            provider.subtitleController.text,
+                            provider.selectedTime,
+                            provider.selectedDate,
+                            provider.progress,
+                          );
+                          provider.titleController.clear();
+                          provider.subtitleController.clear();
+                          Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue, // Цвет фона

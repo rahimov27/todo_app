@@ -3,7 +3,7 @@ import 'dart:math' show Random;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:todo_app/models/todo.dart';
+import 'package:todo_app/home/model/todo.dart';
 import 'package:todo_app/utils/app_colors.dart';
 
 class TodoViewmodel extends ChangeNotifier {
