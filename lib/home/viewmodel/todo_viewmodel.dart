@@ -97,10 +97,10 @@ class TodoViewmodel extends ChangeNotifier {
 
   Color randomColor() {
     List<Color> colors = [
+      AppColors.appGreen,
       AppColors.pink,
-      AppColors.red,
-      AppColors.pink,
-      AppColors.yellow,
+      const Color.fromARGB(255, 244, 160, 44),
+      AppColors.appPurple,
     ];
     var rng = Random();
     return colors[rng.nextInt(colors.length)];

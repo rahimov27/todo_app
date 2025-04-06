@@ -52,7 +52,7 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                 height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppColors.appPurple,
+                  color: provider.randomColor(),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
