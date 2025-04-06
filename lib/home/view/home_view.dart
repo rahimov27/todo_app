@@ -39,15 +39,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 // todos part
                 HomeWelcomeText(),
                 SizedBox(height: 14),
-                HomeSearch(),
+                HomeSearch(onChanged: (value) => provider.searchTodos(value)),
                 SizedBox(height: 14),
-                provider.todos.isNotEmpty
+                provider.displayTodos.isNotEmpty
                     ? ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: provider.todos.reversed.length,
+                      itemCount: provider.displayTodos.reversed.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final todo = provider.todos.reversed.toList()[index];
+                        final todo =
+                            provider.displayTodos.reversed.toList()[index];
                         return Dismissible(
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) {
