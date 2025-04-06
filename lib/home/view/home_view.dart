@@ -46,14 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: provider.displayTodos.reversed.length,
+
                       itemBuilder: (BuildContext context, int index) {
                         final todo =
                             provider.displayTodos.reversed.toList()[index];
+
                         return Dismissible(
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) async {
                             await provider.deleteTask(index);
-
                             setState(() {});
                           },
                           key: Key(todo.key.toString()),
@@ -64,15 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => TodoDetailsScreen(
-                                          index: index,
-                                          title: provider.todos[index].title,
-                                          subtitle:
-                                              provider.todos[index].subtitle ??
-                                              "",
-                                          time: provider.todos[index].time,
-                                          date: provider.todos[index].date,
-                                          progress:
-                                              provider.todos[index].progress,
+                                          title: todo.title,
+                                          subtitle: todo.subtitle ?? "",
+                                          time: todo.time,
+                                          date: todo.date,
+                                          progress: todo.progress,
+                                          index:
+                                              todo.key, // You can use key as an identifier for the todo
                                         ),
                                   ),
                                 ),
