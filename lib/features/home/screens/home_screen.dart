@@ -57,9 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: provider.todos.length,
+                        itemCount: provider.todos.reversed.length,
                         itemBuilder: (BuildContext context, int index) {
-                          final todo = provider.todos[index];
+                          final todo = provider.todos.reversed.toList()[index];
                           return Dismissible(
                             onDismissed: (direction) {
                               Future.delayed(Duration(milliseconds: 100), () {
