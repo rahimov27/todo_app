@@ -335,6 +335,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         child: Text(
                           "Добавить задачу",
                           style: TextStyle(
+                            fontWeight: FontWeight.bold,
                             fontSize: 16,
                             fontFamily: "Montserrat-medium",
                           ),

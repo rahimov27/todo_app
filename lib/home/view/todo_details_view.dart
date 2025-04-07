@@ -359,9 +359,10 @@ class _TodoDetailsScreenState extends State<TodoDetailsScreen> {
                           ),
                         ),
                         child: Text(
-                          "Добавить задачу",
+                          "Изменить",
                           style: TextStyle(
                             fontSize: 16,
+                            fontWeight: FontWeight.bold,
                             fontFamily: "Montserrat-medium",
                           ),
                         ),

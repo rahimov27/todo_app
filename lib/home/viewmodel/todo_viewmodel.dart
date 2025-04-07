@@ -49,6 +49,8 @@ class TodoViewmodel extends ChangeNotifier {
     );
     await _todoBox.add(todo);
     todos = _todoBox.values.toList();
+    titleController.clear();
+    subtitleController.clear();
     notifyListeners();
   }
 
@@ -64,9 +66,16 @@ class TodoViewmodel extends ChangeNotifier {
   Future<void> deleteTask(int index) async {
     if (index >= 0 && index < todos.length) {
       final key = todos[index].key;
+      print("Deleting task with key: $key");
+
+      // Delete the task asynchronously
       await _todoBox.delete(key);
-      todos = _todoBox.values.toList(); // Обновляем список
-      notifyListeners();
+
+      // Wait for the deletion to complete and refresh the list of tasks
+      todos = _todoBox.values.toList(); // Ensure the list is refreshed
+      print("Updated todos after deletion: $todos");
+
+      notifyListeners(); // Notify listeners to update the UI
     }
   }
 
@@ -97,10 +106,10 @@ class TodoViewmodel extends ChangeNotifier {
 
   Color randomColor() {
     List<Color> colors = [
+      AppColors.appGreen,
       AppColors.pink,
-      AppColors.red,
-      AppColors.pink,
-      AppColors.yellow,
+      const Color.fromARGB(255, 244, 160, 44),
+      AppColors.appPurple,
     ];
     var rng = Random();
     return colors[rng.nextInt(colors.length)];
@@ -119,22 +128,32 @@ class TodoViewmodel extends ChangeNotifier {
   }
 
   void updateTask(
-    int index, // Принимаем индекс в списке
+    int index, // This should be the Hive key, not list index
     String title,
     String subtitle,
     DateTime time,
     DateTime date,
     double progress,
   ) async {
-    if (index >= 0 && index < todos.length) {
-      final todo = todos[index];
+    // Find the todo by its key (index parameter is actually the Hive key)
+    final todo = _todoBox.get(index);
+
+    if (todo != null) {
+      // Create new DateTime objects to prevent reference issues
+      todo.time = DateTime(
+        time.year,
+        time.month,
+        time.day,
+        time.hour,
+        time.minute,
+      );
+      todo.date = DateTime(date.year, date.month, date.day);
       todo.title = title;
       todo.subtitle = subtitle;
-      todo.time = time;
-      todo.date = date;
       todo.progress = progress;
 
-      await _todoBox.put(todo.key, todo);
+      await _todoBox.put(index, todo); // Save using the Hive key
+      todos = _todoBox.values.toList(); // Refresh the list
       notifyListeners();
     }
   }

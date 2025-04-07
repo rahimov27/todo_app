@@ -39,22 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 // todos part
                 HomeWelcomeText(),
                 SizedBox(height: 14),
-                HomeSearch(),
+                HomeSearch(onChanged: (value) => provider.searchTodos(value)),
                 SizedBox(height: 14),
-                provider.todos.isNotEmpty
+                provider.displayTodos.isNotEmpty
                     ? ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: provider.todos.reversed.length,
+                      itemCount: provider.displayTodos.reversed.length,
+
                       itemBuilder: (BuildContext context, int index) {
-                        final todo = provider.todos.reversed.toList()[index];
+                        final todo =
+                            provider.displayTodos[provider.displayTodos.length -
+                                1 -
+                                index]; // Adjust index based on reversed list
+
                         return Dismissible(
                           direction: DismissDirection.endToStart,
-                          onDismissed: (direction) {
-                            Future.delayed(Duration(milliseconds: 100), () {
-                              provider.deleteTask(index);
-                              setState(() {});
-                            });
+                          onDismissed: (direction) async {
+                            // Delete the task based on the actual index in the original list
+                            await provider.deleteTask(
+                              provider.displayTodos.length - 1 - index,
+                            ); // Pass the correct index for deletion
                           },
                           key: Key(todo.key.toString()),
                           child: GestureDetector(
@@ -64,15 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => TodoDetailsScreen(
-                                          index: index,
-                                          title: provider.todos[index].title,
-                                          subtitle:
-                                              provider.todos[index].subtitle ??
-                                              "",
-                                          time: provider.todos[index].time,
-                                          date: provider.todos[index].date,
-                                          progress:
-                                              provider.todos[index].progress,
+                                          title: todo.title,
+                                          subtitle: todo.subtitle ?? "",
+                                          time: todo.time,
+                                          date: todo.date,
+                                          progress: todo.progress,
+                                          index: todo.key,
                                         ),
                                   ),
                                 ),
