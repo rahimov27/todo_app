@@ -128,22 +128,32 @@ class TodoViewmodel extends ChangeNotifier {
   }
 
   void updateTask(
-    int index, // Принимаем индекс в списке
+    int index, // This should be the Hive key, not list index
     String title,
     String subtitle,
     DateTime time,
     DateTime date,
     double progress,
   ) async {
-    if (index >= 0 && index < todos.length) {
-      final todo = todos[index];
+    // Find the todo by its key (index parameter is actually the Hive key)
+    final todo = _todoBox.get(index);
+
+    if (todo != null) {
+      // Create new DateTime objects to prevent reference issues
+      todo.time = DateTime(
+        time.year,
+        time.month,
+        time.day,
+        time.hour,
+        time.minute,
+      );
+      todo.date = DateTime(date.year, date.month, date.day);
       todo.title = title;
       todo.subtitle = subtitle;
-      todo.time = time;
-      todo.date = date;
       todo.progress = progress;
 
-      await _todoBox.put(todo.key, todo);
+      await _todoBox.put(index, todo); // Save using the Hive key
+      todos = _todoBox.values.toList(); // Refresh the list
       notifyListeners();
     }
   }
