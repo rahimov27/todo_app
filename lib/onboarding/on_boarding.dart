@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_app/home/view/home_view.dart';
 import 'package:todo_app/utils/app_colors.dart';
+import 'package:todo_app/utils/boarding.dart';
 
-class OnBoarding1 extends StatefulWidget {
-  const OnBoarding1({super.key});
+class OnBoarding extends StatefulWidget {
+  const OnBoarding({super.key});
 
   @override
-  State<OnBoarding1> createState() => _OnBoarding1State();
+  State<OnBoarding> createState() => _OnBoardingState();
 }
 
-class _OnBoarding1State extends State<OnBoarding1> {
+class _OnBoardingState extends State<OnBoarding> {
   late PageController _pageController;
 
   int _pageIndex = 0;
@@ -43,6 +47,7 @@ class _OnBoarding1State extends State<OnBoarding1> {
 
   @override
   Widget build(BuildContext context) {
+    final boradingProvider = Provider.of<BoardingProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.onBoarding,
       body: SafeArea(
@@ -78,34 +83,63 @@ class _OnBoarding1State extends State<OnBoarding1> {
                       ),
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    overlayColor: WidgetStateProperty.all(Colors.transparent),
-                  ),
-                  onPressed: () {
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                  child: Text(
-                    "Продолжить",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.onBoardingButton,
-                      fontFamily: "Montserrat-semibold",
+              _pageIndex != onBoardingData.length - 1
+                  ? GestureDetector(
+                    onTap: () {
+                      _pageController.nextPage(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: CircleAvatar(
+                        radius: 28,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: AppColors.onBoarding,
+                        ),
+                      ),
+                    ),
+                  )
+                  : SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        overlayColor: WidgetStateProperty.all(
+                          Colors.transparent,
+                        ),
+                      ),
+                      onPressed: () async {
+                        await boradingProvider.completeBoarding();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
+                      },
+                      child: Text(
+                        "Продолжить",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.onBoardingButton,
+                          fontFamily: "Montserrat-semibold",
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> isFinish() async {
+    bool isFinished = true;
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("onBoardingValue", isFinished);
   }
 }
 
